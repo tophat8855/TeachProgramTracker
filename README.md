@@ -43,3 +43,7 @@ Before running the rails server, make a secret key in secrets.yml in the config 
 '''
 
 Run 'rails server' to see it in localhost:3000.
+
+Some important commands:
+rake db:create
+rake db:migrate
