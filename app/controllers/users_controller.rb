@@ -33,6 +33,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def invite
+    User.invite!(email: params[:email])
+  end
+
   private
 
   def current_user_has_access_to_user(user)

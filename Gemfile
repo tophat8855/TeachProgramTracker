@@ -21,6 +21,7 @@ gem 'coffee-rails', '~> 4.2'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 gem 'devise'
+gem 'devise_invitable'
 
 gem 'haml-rails'
 # Use jquery as the JavaScript library
