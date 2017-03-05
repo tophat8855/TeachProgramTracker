@@ -1,4 +1,11 @@
 %ul
   - @users.all.each do |user|
-    %li= user.email
-    = link_to "Destroy", "/users/#{user.id}", method: :delete, data: { confirm: "You sure?" }
+    %li
+      = user.email
+      - if user.trainer?
+        %p= "Trainer"
+      - else
+        %p= "Normal User"
+      = link_to "View", "/users/#{user.id}", method: :get
+      = link_to "Edit", "/users/#{user.id}/edit", method: :get
+      = link_to "Destroy", "/users/#{user.id}", method: :delete, data: { confirm: "You sure?" }
