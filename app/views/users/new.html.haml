@@ -1,12 +1,19 @@
-= form_for @user,:html => {:class => "ui form"} do |f|
-  %div
-    = f.label :name
-    = f.text_field :name
-  %div
-    = f.label :email
-    = f.text_area :email
-  %div
-    = f.label :status
-    = f.text_area :status
-  %div
-    = f.submit
+.ui.buttons
+  %button.ui.labeled.icon.button
+    %i.left.chevron.icon
+    %a.item{:href => "/users"} Back to Users List
+
+
+.ui.text.container
+  = form_for @user,:html => {:class => "ui form"} do |f|
+    %div.field
+      = f.label :name
+      = f.text_field :name
+    %div.field
+      = f.label :email
+      = f.text_field :email
+    %div.field
+      = f.label :status
+      = f.text_field :status
+    %div.field
+      = f.submit 'Submit', :class => "ui primary button"

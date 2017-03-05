@@ -1,7 +1,12 @@
 
 -# autofill IF resident is logged in?
-%div{:class => "ui container" }
-	Hello current resident based on log in,
+
+.ui.buttons
+	%button.ui.labeled.icon.button
+		%i.left.chevron.icon
+		%a{:href => "/procedures"} Back to Procedures List
+
+.ui.text.container
 	%form{ :class => "ui form", "accept-charset" => "UTF-8", :method => "post", :id => "new_procedure", :action => "/procedures"}
 		%input{:name => "authenticity_token", :type => "hidden", :value => form_authenticity_token}/
 		%div.field
@@ -37,20 +42,10 @@
 		%div.field
 			%label{:for => "notes"} Notes:
 			%input{:name => "procedure[notes]", :type => "text", :value => ""}/
-		%input{:type => "submit", :name => "commit", :value => "Create Procedure"}
+		%input{:type => "submit", :name => "commit", :value => "Create Procedure", :class => "ui primary button"}
 
 -# resident status inferred from resident
 -# confirmation status is unconfirmed
 -# create many procedure objects for each selected procedure 
 -# http://www.randomsnippets.com/2008/02/21/how-to-dynamically-add-form-elements-via-javascript/
 -# form behaviors
-
--#= form_for @procedure do |f|
--#  %div
--#    = f.label :name
--#    = f.text_field :name
--#  %div
--#    = f.label :date
--#    = f.text_field :date, :value => Date.today
--#  %div
--#    = f.submit

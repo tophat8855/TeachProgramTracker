@@ -1,4 +1,6 @@
 All logged procedures in the DB.  Name and date.  Debug page.
 
-- @procedures.each do |p|
-    %p= a = "Procedure name: " << p.name << " On Date: " << p.date.to_s
+%ul
+	- @procedures.each do |p|
+		%li
+			= a = "Procedure name: " << p.name << " On Date: " << p.date.to_s
