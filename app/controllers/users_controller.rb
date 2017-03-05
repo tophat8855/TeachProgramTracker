@@ -3,7 +3,7 @@ class UsersController < ApplicationController
     if current_user.admin?
       @users = User.where(admin: false).order("trainer DESC")
     elsif current_user.trainer?
-      @users = User.where(admin: false, trainer: false)
+      @users = User.where(admin: false, trainer: false, location_id: current_user.location_id)
     else
       redirect_to user_path(current_user)
     end
@@ -11,9 +11,22 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by(id: params[:id])
+
+    # Uncomment after Procedure Table is created
+    # @procedures = Procedure.all.where(user_id = @user.id)
+
     unless current_user_has_access_to_user(@user)
       redirect_to root_path
     end
+  end
+
+  def new
+    @user = User.new
+  end
+
+  def create
+    User.create(user_params)
+    redirect_to users_path
   end
 
   def edit
@@ -21,6 +34,13 @@ class UsersController < ApplicationController
     unless current_user_has_access_to_user(@user)
       redirect_to root_path
     end
+  end
+
+  def update
+    @user = User.find_by(id: params[:id])
+    @user.update_attributes(user_params)
+
+    redirect_to users_path
   end
 
   def destroy
@@ -34,6 +54,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def user_params
+    params.require(:user).permit(:email, :name, :location_id, :status)
+  end
 
   def current_user_has_access_to_user(user)
     if current_user != user
