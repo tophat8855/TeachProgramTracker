@@ -1,0 +1,7 @@
+= link_to 'New Residency Location', new_residency_location_path, method: :get
+
+%ul
+  - @residency_locations.all.each do |location|
+    %li
+      = location.name
+      = link_to 'Delete Location', '/residency_locations/#{locaion.id}', method: :delete, data: { confirm: 'You sure?' }

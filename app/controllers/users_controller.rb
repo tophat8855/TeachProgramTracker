@@ -27,8 +27,12 @@ class UsersController < ApplicationController
   end
 
   def create
-    User.create(user_params)
-    redirect_to users_path
+    user = User.new(user_params)
+    if user.save
+      redirect_to users_path
+    else
+      render :new
+    end
   end
 
   def edit
@@ -40,9 +44,12 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find_by(id: params[:id])
-    @user.update_attributes(user_params)
 
-    redirect_to users_path
+    if @user.update_attributes(user_params)
+      redirect_to users_path
+    else redirect_to
+      redirect_to edit_user_path(@user)
+    end
   end
 
   def destroy
