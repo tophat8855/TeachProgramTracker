@@ -2,7 +2,7 @@
   .ui.buttons
     %button.ui.labeled.icon.button
       %i.plus.icon
-      Add New User
+      Invite New User
 
 
 %table.ui.celled.striped.table
@@ -31,14 +31,14 @@
           = user.name
         %td.collapsing
           = user.email
-        %td.collapsing 
+        %td.collapsing
           location
-        %td.collapsing 
+        %td.collapsing
           - if user.trainer?
             = "Trainer"
           - else
             = "Normal User"
-        %td.right.collapsing 
+        %td.right.collapsing
           = link_to "View", "/users/#{user.id}", method: :get
           &emsp;
           = link_to "Edit", "/users/#{user.id}/edit", method: :get
