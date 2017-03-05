@@ -13,7 +13,7 @@
 						%option{value: user.name}
 							= user.name << " -- " << user.email
 			- else
-				%input{:name => "procedure[resident]", :disabled => "", :placeholder => @residentName, :tabindex => "-1", :type => "string", :value => @residentName}/
+				%input{:name => "procedure[resident]", :disabled => "", :placeholder => @residentName, :tabindex => "-1", :type => "text", :value => @residentName}/
 		%div.field
 			%label{:for => "date"} Date:
 			%input{:name => "procedure[date]", :type => "date", :value => Date.today}/
