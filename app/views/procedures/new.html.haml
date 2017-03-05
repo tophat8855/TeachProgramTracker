@@ -1,15 +1,24 @@
 
 -# autofill IF resident is logged in?
-%div{:class => "ui container" }
-	Hello current resident based on log in,
+
+.ui.buttons
+	%button.ui.labeled.icon.button
+		%i.left.chevron.icon
+		%a{:href => "/procedures"} Back to Procedures List
+
+.ui.text.container
 	%form{ :class => "ui form", "accept-charset" => "UTF-8", :method => "post", :id => "new_procedure", :action => "/procedures"}
 		%input{:name => "authenticity_token", :type => "hidden", :value => form_authenticity_token}/
 		%div.field
-			%label{:for => "name"} Resident Name:
+			%label{:for => "user_id"} Resident Name:
 			- if @allowNameEntry == true
-				%input{:name => "procedure[resident]", :type => "text", :value => ""}/
+				%select{:name => "procedure[user_id]", :multiple => false}
+					- @users.each do |user|
+						-# Value here should be the UserID that we want to go into the procedure DB.
+						%option{value: user.id}
+							= user.name << " -- " << user.email
 			- else
-				%input{:name => "procedure[resident]", :disabled => "", :placeholder => @residentName, :tabindex => "-1", :type => "text", :value => @residentName}/
+				%input{:name => "procedure[user_id]", :disabled => "", :placeholder => @residentName, :tabindex => "-1", :type => "text", :value => @residentName}/
 		%div.field
 			%label{:for => "date"} Date:
 			%input{:name => "procedure[date]", :type => "date", :value => Date.today}/
@@ -34,23 +43,26 @@
 				%option{value: 'Assisted'} Assisted
 				%option{value: 'All'} All
 				%option{value: 'Solo'} Solo
+		-#TODO: Clinic locations should be populated based off of residency locations.
+		%div.field
+			%label{:for => "clinic_location"} Clinic Location:
+			%select{:name => "procedure[clinic_location]", :multiple => false}
+				%option{value: 'Qonos'} Kronos
+				%option{value: 'Pluto'} Pluto
+				%option{value: 'Mars'} Mars
+				%option{value: 'The Mooon'} The Moon
+				%option{value: 'Pluto'} Pluto
+				%option{value: 'Io'} Io
 		%div.field
 			%label{:for => "notes"} Notes:
 			%input{:name => "procedure[notes]", :type => "text", :value => ""}/
-		%input{:type => "submit", :name => "commit", :value => "Create Procedure"}
+		%input{:type => "submit", :name => "commit", :value => "Create Procedure", :class => "ui primary button"}
+
+-# Need to add clinic locations
+
 
 -# resident status inferred from resident
 -# confirmation status is unconfirmed
 -# create many procedure objects for each selected procedure 
 -# http://www.randomsnippets.com/2008/02/21/how-to-dynamically-add-form-elements-via-javascript/
 -# form behaviors
-
--#= form_for @procedure do |f|
--#  %div
--#    = f.label :name
--#    = f.text_field :name
--#  %div
--#    = f.label :date
--#    = f.text_field :date, :value => Date.today
--#  %div
--#    = f.submit

@@ -14,3 +14,11 @@
  *= require_self
  */
 @import 'semantic-ui';
+.ui.primary.button {
+  background-color: #4F8D93;
+  color: #fff;
+}
+.ui.primary.button:hover {
+  background-color: #163D39;
+  color: #fff;
+}
