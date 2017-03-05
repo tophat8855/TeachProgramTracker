@@ -1,0 +1,4 @@
+%ul
+  - @users.all.each do |user|
+    %li= user.email
+    = link_to "Destroy", "/users/#{user.id}", method: :delete, data: { confirm: "You sure?" }
