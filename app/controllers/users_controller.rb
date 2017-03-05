@@ -11,7 +11,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by(id: params[:id])
-    @location = Location.find_by(id: params[:location_id])
+    # @location = Location.find(params[:location_id])
 
     # Uncomment after Procedure Table is created
     # @procedures = Procedure.all.where(user_id = @user.id)
@@ -62,7 +62,8 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :name, :location_id, :status)
+    params.require(:user).permit(:email, :name, :location_id, :status, :trainer,
+    :admin)
   end
 
   def current_user_has_access_to_user(user)
