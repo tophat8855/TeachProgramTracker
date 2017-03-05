@@ -6,10 +6,13 @@
 		%input{:name => "authenticity_token", :type => "hidden", :value => form_authenticity_token}/
 		%div.field
 			%label{:for => "name"} Resident Name:
-			%input{:name => "procedure[resident]", :type => "text", :value => ""}/
+			- if @allowNameEntry == true
+				%input{:name => "procedure[resident]", :type => "string", :value => ""}/
+			- else
+				%input{:name => "procedure[resident]", :disabled => "", :placeholder => @residentName, :tabindex => "-1", :type => "string", :value => @residentName}/
 		%div.field
 			%label{:for => "date"} Date:
-			%input{:name => "procedure[date]", :type => "date", :value => ""}/
+			%input{:name => "procedure[date]", :type => "date", :value => Date.today}/
 		%div.field 
 			%label{:for => "procedure"} Procedure:
 			%select{:name => "procedure[name]", :multiple => false}
