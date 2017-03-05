@@ -4,9 +4,15 @@
     = f.text_field :name
   %div
     = f.label :email
-    = f.text_area :email
+    = f.text_field :email
   %div
     = f.label :status
-    = f.text_area :status
+    = f.text_field :status
   %div
-    = f.submit
+    = f.label :trainer
+    = f.check_box :trainer
+  %div
+    = f.label :admin
+    = f.check_box :admin
+  %div
+    = f.submit "Create User"

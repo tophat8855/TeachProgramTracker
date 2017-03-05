@@ -9,4 +9,10 @@
     = f.label :status
     = f.text_field :status
   %div
+    = f.label :trainer
+    = f.check_box :trainer
+  %div
+    = f.label :admin
+    = f.check_box :admin
+  %div
     = f.submit "Update User"
