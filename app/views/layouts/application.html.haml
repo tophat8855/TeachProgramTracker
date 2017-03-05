@@ -6,10 +6,34 @@
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    
+
   %body
-    %p.notice= notice
-    %p.alert= alert
-    - if user_signed_in?
-      = link_to('Logout', destroy_user_session_path, :method => :delete)
-    %br/
-    = yield
+    .ui.container
+      - if notice or alert
+        .ui.message
+          = notice
+          = alert
+          %i.close.icon
+      - if user_signed_in?
+        .ui.secondary.menu
+          %a.item{:href => "/"}
+            Home
+          %a.item{:href => "/procedures/new"}
+            Add Procedure
+          - if current_user.admin or current_user.trainer
+            %a.item{:href => "/users"}
+              Edit Users
+          .right.menu
+            %a.ui.item{"data-method" => "delete", :href => "/my/users/sign_out", :rel => "nofollow"} Logout
+      = yield
+
+    :javascript
+      $('.message .close.icon')
+        .on('click', function() {
+          $(this)
+            .closest('.message')
+            .transition('fade')
+          ;
+        })
+      ;
