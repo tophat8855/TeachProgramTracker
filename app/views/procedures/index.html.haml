@@ -1,4 +1,12 @@
 All logged procedures in the DB.  Name and date.  Debug page.
 
-- @procedures.each do |p|
-    %p= a = "Procedure name: " << p.name << " On Date: " << p.date.to_s
+%div{:class => "ui container" }
+
+	- if @priviledged == false
+		%div Your procedure history
+
+	- @procedures.each do |p|
+		- if p != nil 
+			%div= "Procedure name: " << p.name << "  On date: " << p.date.to_s << "  At site: " << p.clinic_location << "  Performed by: " << p.resident_name
+		- else
+			%div There are no procedures logged.

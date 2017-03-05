@@ -1,17 +1,34 @@
-= link_to "New User", "/users/new", method: :get
-
-%ul
+.ui.list
   - @users.all.each do |user|
-    %li
-      = user.name
-      %p= user.email
-      - if user.trainer?
-        %p= "Trainer"
-      - else
-        %p= "Normal User"
-      = link_to "View", "/users/#{user.id}", method: :get
-      = link_to "Edit", "/users/#{user.id}/edit", method: :get
-      = link_to "Destroy", "/users/#{user.id}", method: :delete, data: { confirm: "You sure?" }
+    .item
+      %i.users.icon
+      .content
+        = user.name
+        .ui.list
+          .item
+            %i.mail.icon
+            .content
+              = user.email
+          .item
+            %i.marker.icon
+            .content
+              put location
+          .item
+            %i.folder.icon
+            .content
+              - if user.trainer?
+                = "Trainer"
+              - else
+                = "Normal User"
+          .item
+            %i.linkify.icon
+            .content
+              = link_to "View", "/users/#{user.id}", method: :get
+              &emsp;
+              = link_to "Edit", "/users/#{user.id}/edit", method: :get
+              &emsp;
+              = link_to "Destroy", "/users/#{user.id}", method: :delete, data: { confirm: "You sure?" }
+
 
 = form_tag("/users/invite", method: "post") do
   = label_tag(:email, "Email address:")

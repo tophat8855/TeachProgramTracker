@@ -1,17 +1,24 @@
-%h2 Log in
-= form_for(resource, as: resource_name, url: session_path(resource_name),:html => {:class => "ui form"}) do |f|
-  .field
-    = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true
-  .field
-    = f.label :password
-    %br/
-    = f.password_field :password, autocomplete: "off"
-  - if devise_mapping.rememberable?
-    .field
-      = f.check_box :remember_me
-      = f.label :remember_me
-  .actions
-    = f.submit "Log in"
-= render "devise/shared/links"
+
+.ui.text.container
+  .ui.middle.aligned.center.aligned.grid
+    .column
+      %h2.ui.image.header
+        %img.image{:src => "/teachlogo.png"}/
+        .content
+          Log-in to your account
+      = form_for(resource, as: resource_name, url: session_path(resource_name),:html => {:class => "form ui large form"}) do |f|
+        .ui.stacked.segment
+          .field
+            = f.email_field :email, autofocus: true, :placeholder => "E-mail address"
+          .field
+            = f.password_field :password, autocomplete: "off", :placeholder => "Password"
+          - if devise_mapping.rememberable?
+            .ui.checkbox
+              .field
+                = f.check_box :remember_me
+                = f.label :remember_me
+          .actions
+            = f.submit "Log in", :class => "ui fluid large primary submit button "
+        = render "devise/shared/links"
+
+
