@@ -9,6 +9,9 @@
     %div.field
       = label_tag :status, "Status:"
       = text_field_tag :status
+    %div.field
+      = label_tag :residency_location_id, "Location:"
+      = select_tag :residency_location_id, options_from_collection_for_select(ResidencyLocation.all, :id, :name)
     = submit_tag "Invite", class: "ui primary button"
     %a{:href => "/users"}
       = button_tag "Cancel", :type => 'button', :class => "ui button"
