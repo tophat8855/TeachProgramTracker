@@ -16,6 +16,13 @@ class ResidencyLocationsController < ApplicationController
     end
   end
 
+  def destroy
+    residency_location = ResidencyLocation.find_by(id: params[:id])
+
+    residency_location.destroy
+    redirect_to residency_locations_path
+  end
+
   def residency_location_params
     params.require(:residency_location).permit(:name)
   end

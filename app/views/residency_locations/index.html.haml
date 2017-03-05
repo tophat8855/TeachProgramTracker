@@ -4,4 +4,4 @@
   - @residency_locations.all.each do |location|
     %li
       = location.name
-      = link_to 'Delete Location', '/residency_locations/#{locaion.id}', method: :delete, data: { confirm: 'You sure?' }
+      = link_to 'Delete Location', "/residency_locations/#{location.id}", method: :delete, data: { confirm: 'You sure?' }
