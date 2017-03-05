@@ -10,16 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170305033558) do
+ActiveRecord::Schema.define(version: 20170305181204) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "locations", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "procedures", force: :cascade do |t|
     t.string   "resident"
@@ -32,6 +26,12 @@ ActiveRecord::Schema.define(version: 20170305033558) do
     t.string   "residentstatus"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+  end
+
+  create_table "residency_locations", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 20170305033558) do
     t.datetime "updated_at",                             null: false
     t.boolean  "admin",                  default: false
     t.boolean  "trainer",                default: false
-    t.integer  "location_id"
+    t.integer  "residency_location_id"
     t.string   "name"
     t.string   "status"
     t.string   "invitation_token"

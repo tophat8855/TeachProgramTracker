@@ -3,7 +3,7 @@ class UsersController < ApplicationController
     if current_user.admin?
       @users = User.where(admin: false).order("trainer DESC")
     elsif current_user.trainer?
-      @users = User.where(admin: false, trainer: false, location_id: current_user.location_id)
+      @users = User.where(admin: false, trainer: false, residency_location_id: current_user.residency_location_id)
     else
       redirect_to user_path(current_user)
     end
@@ -11,7 +11,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by(id: params[:id])
-    # @location = Location.find(params[:location_id])
+
+    #@resdency_location = ResidencyLocation.find_by(id: params[:residency_location_id])
 
     # Uncomment after Procedure Table is created
     # @procedures = Procedure.all.where(user_id = @user.id)
@@ -62,7 +63,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :name, :location_id, :status, :trainer,
+    params.require(:user).permit(:email, :name, :residency_location_id, :status, :trainer,
     :admin)
   end
 
