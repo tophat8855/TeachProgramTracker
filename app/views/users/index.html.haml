@@ -1,7 +1,10 @@
+= link_to "New User", "users/new", method: :get
+
 %ul
   - @users.all.each do |user|
     %li
-      = user.email
+      = user.name
+      %p= user.email
       - if user.trainer?
         %p= "Trainer"
       - else
