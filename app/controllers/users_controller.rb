@@ -11,6 +11,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by(id: params[:id])
+    @location = Location.find_by(id: params[:location_id])
 
     # Uncomment after Procedure Table is created
     # @procedures = Procedure.all.where(user_id = @user.id)
