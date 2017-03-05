@@ -14,7 +14,6 @@ class UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
 
     #@resdency_location = ResidencyLocation.find_by(id: params[:residency_location_id])
-
     # Uncomment after Procedure Table is created
     # @procedures = Procedure.all.where(user_id = @user.id)
 
@@ -45,12 +44,8 @@ class UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
 
     if @user.update_attributes(user_params)
-      puts "good!"
-      puts user_params.inspect
       redirect_to users_path
     else
-      puts "bad!"
-      puts user_params
       redirect_to edit_user_path(@user)
     end
   end
