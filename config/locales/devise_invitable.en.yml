@@ -19,7 +19,7 @@ en:
       invitation_instructions:
         subject: "Welcome to the TEACH Program"
         hello: "Dear %{email}"
-        someone_invited_you: "Welcome to the TEACH Program, you will be using this tool for tracking your procedures through the academic year. After you accept the link, save the webpage to the home screen on your phone for quick access during clinic.<br /><br />Save this webpage: %{url}"
+        someone_invited_you: "Welcome to the TEACH Program, you will be using this tool for tracking your procedures through the academic year. After you accept the link, save the webpage to the home screen on your phone for quick access during clinic.<br/><br/>Save this webpage: %{url}"
         accept: "Accept invitation"
         accept_until: "This invitation will be due in %{due_date}."
         ignore: "Your account won't be created until you access the link above and set your password.<br/><br/>Sincerely,<br/>The TEACH Program"
