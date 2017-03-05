@@ -24,8 +24,8 @@
           %i.sticky.note.icon
           Type
         %th.right.collapsing
-  - @users.all.each do |user|
-    %tbody
+  %tbody
+    - @users.all.each do |user|
       %tr
         %td.collapsing
           = user.name
