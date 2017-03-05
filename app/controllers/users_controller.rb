@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   def index
     if current_user.admin?
-      @users = User.where(admin: false)
+      @users = User.where(admin: false).order("trainer DESC")
     elsif current_user.trainer?
       @users = User.where(admin: false, trainer: false)
     else
