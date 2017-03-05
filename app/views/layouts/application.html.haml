@@ -27,8 +27,8 @@
           - if current_user.admin? || current_user.trainer?
             %a.item{:href => "/users"}
               Users
-            %a.item{:href => "/locations"}
-              Locations
+            %a.item{:href => "/residency_locations"}
+              Residency Locations
           .right.menu
             %a.ui.item{"data-method" => "delete", :href => "/my/users/sign_out", :rel => "nofollow"} Logout
       .ui.container
