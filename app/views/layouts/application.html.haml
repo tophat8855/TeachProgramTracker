@@ -19,7 +19,7 @@
       - if user_signed_in?
         .ui.menu
           .item
-            %img{:src => "/teachlogoburst.png"}/
+            %img{:src => "/teachlogoburst.png"}/ 
           %a.item{:href => "/"}
             Home
           %a.item{:href => "/procedures/new"}
@@ -27,6 +27,8 @@
           - if current_user.admin? || current_user.trainer?
             %a.item{:href => "/users"}
               Manage Users
+            %a.item{:href => "/locations"}
+              Locations
           .right.menu
             %a.ui.item{"data-method" => "delete", :href => "/my/users/sign_out", :rel => "nofollow"} Logout
       .ui.container

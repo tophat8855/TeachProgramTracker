@@ -1,1 +1,14 @@
-= render 'shared/user_form', locals: {user: @user}
+.ui.text.container
+  = form_for @user,:html => {:class => "ui form"} do |f|
+    %div.field
+      = f.label :name
+      = f.text_field :name
+    %div.field
+      = f.label :email
+      = f.text_field :email
+    %div.field
+      = f.label :status
+      = f.text_field :status
+    %div.field
+      = f.submit 'Submit', :class => "ui primary button"
+      = button_tag "Cancel", :type => 'button', :class => "ui button"

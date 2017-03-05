@@ -1,11 +1,5 @@
 
 -# autofill IF resident is logged in?
-
-.ui.buttons
-	%button.ui.labeled.icon.button
-		%i.left.chevron.icon
-		%a{:href => "/procedures"} Back to Procedures List
-
 .ui.text.container
 	%form{ :class => "ui form", "accept-charset" => "UTF-8", :method => "post", :id => "new_procedure", :action => "/procedures"}
 		%input{:name => "authenticity_token", :type => "hidden", :value => form_authenticity_token}/
@@ -60,6 +54,7 @@
 			%label{:for => "notes"} Notes:
 			%input{:name => "procedure[notes]", :type => "text", :value => ""}/
 		%input{:type => "submit", :name => "commit", :value => "Create Procedure", :class => "ui primary button"}
+		= button_tag "Cancel", :type => 'button', :class => "ui button"
 
 -# Need to add clinic locations
 

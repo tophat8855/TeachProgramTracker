@@ -1,12 +1,54 @@
-All logged procedures in the DB.  Name and date.  Debug page.
+%a{:href => "/procedures/new"}
+  .ui.buttons
+    %button.ui.labeled.icon.button
+      %i.plus.icon
+      Record New Procedure
 
-%div{:class => "ui container" }
-
-	- if @priviledged == false
-		%div Your procedure history
-
-	- @procedures.each do |p|
-		- if p != nil 
-			%div= "Procedure name: " << p.name << "  On date: " << p.date.to_s << "  At site: " << p.clinic_location << "  Performed by: " << p.resident_name
-		- else
-			%div There are no procedures logged.
+%table.ui.celled.table
+  %thead
+    %tr
+      %th{:colspan => "7"}
+        - if @priviledged == false
+          %div Your procedure history
+        - else
+          %div Procedure history
+      %tr
+        %th.collapsing
+          %i.heartbeat.icon
+          Procedure Type
+        %th.collapsing
+          %i.calendar.icon
+          Date
+        %th.collapsing
+          %i.marker.icon
+          Clinic
+        %th
+          %i.sticky.note.icon
+          Notes
+        %th.right.collapsing
+          %i.user.icon
+          Resident
+        %th.right.collapsing
+          Confirmation Status
+        %th.right.collapsing
+  %tbody      
+  - @procedures.each do |p|
+    - if p != nil
+      %tr
+        %td.collapsing
+          = p.name
+        %td.collapsing
+          =p.date.to_s
+        %td.collapsing 
+          =p.clinic_location
+        %td 
+          =p.notes
+        %td.right.collapsing 
+          =p.resident_name
+        %td.right.collapsing 
+          - if p.confirmation
+            %i.checkmark.box.icon
+          - else
+            %i.square.outline.icon
+        %td.right.collapsing 
+          edit/veiw/destroy links here
