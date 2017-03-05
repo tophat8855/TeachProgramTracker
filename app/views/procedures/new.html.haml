@@ -1,9 +1,42 @@
-= form_for @procedure do |f|
-  %div
-    = f.label :name
-    = f.text_field :name
-  %div
-    = f.label :date
-    = f.text_field :date, :value => Date.today
-  %div
-    = f.submit
+
+-# autofill IF resident is logged in?
+%div{:class => "ui container" }
+	Hello current resident based on log in,
+	%form{ :action => "/rotas", :method => "post", :class => "ui form" }
+		%div.field
+			%label{:for => "name"} Resident Name:
+			%input{:name => "name", :type => "string", :value => ""}/
+		%div.field
+			%label{:for => "date"} Date:
+			%input{:name => "date", :type => "date", :value => ""}/
+		%div.field 
+			%label{:for => "procedure"} Procedure:
+			%select{:name => "procedure", :multiple => false}
+				%option{value: 'MVA'} MVA
+				%option{value: 'EVA'} EVA
+				%option{value: 'MAB'} MAB
+				%option{value: 'U/S'} U/S
+				%option{value: 'IUD'} IUD
+				%option{value: 'Implant'} Implant
+				%option{value: 'Options'} Options Counseling
+				%option{value: 'Contraceptive'} Contraceptive Counseling
+		%div.field 
+			%label{:for => "gest"} Weeks Gestation:
+			%input{:name => "gest", :type => "number", :value => ""}/
+		%div.field
+			%label{:for => "assistance"} Level of Assistance:
+			%select{:name => "assistance", :multiple => false}
+				%option{value: 'Observed'} Observed
+				%option{value: 'Assisted'} Assisted
+				%option{value: 'All'} All
+				%option{value: 'Solo'} Solo
+		%div.field
+			%label{:for => "notes"} Notes:
+			%input{:name => "notes", :type => "text", :value => ""}/
+		%input{ :type => "submit" }
+
+-# resident status inferred from resident
+-# confirmation status is unconfirmed
+-# create many procedure objects for each selected procedure 
+-# http://www.randomsnippets.com/2008/02/21/how-to-dynamically-add-form-elements-via-javascript/
+-# form behaviors
