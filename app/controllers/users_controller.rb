@@ -35,6 +35,7 @@ class UsersController < ApplicationController
 
   def invite
     User.invite!(email: params[:email])
+    redirect_to users_path
   end
 
   private
