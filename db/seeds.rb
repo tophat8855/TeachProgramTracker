@@ -4,4 +4,4 @@
 locations = Location.create([{name: 'San Francisco'}, {name: 'Contra Costa'}])
 
 User.create({email: 'test@gmail.com', password: 'password', password_confirmation: 'password', name: 'Test1', admin: true, trainer: true, location_id: locations.first.id})
-User.create({email: 'test2@gmail.com', password: 'password', password_confirmation: 'password', name: 'Test2' status: 'R2'})
+User.create({email: 'test2@gmail.com', password: 'password', password_confirmation: 'password', name: 'Test2', status: 'R2'})
