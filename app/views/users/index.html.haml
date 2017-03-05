@@ -10,20 +10,30 @@
     %tr
       %th{:colspan => "6"}
         %div Users
+      %tr
+        %th.collapsing
+          %i.users.icon
+          Name
+        %th.collapsing
+          %i.mail.icon
+          Email
+        %th.collapsing
+          %i.marker.icon
+          Location
+        %th
+          %i.sticky.note.icon
+          Type
+        %th.right.collapsing
   - @users.all.each do |user|
     %tbody
       %tr
         %td.collapsing
-          %i.users.icon
           = user.name
         %td.collapsing
-          %i.mail.icon
           = user.email
         %td.collapsing 
-          %i.marker.icon
           location
         %td.collapsing 
-          %i.folder.icon
           - if user.trainer?
             = "Trainer"
           - else

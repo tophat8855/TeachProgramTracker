@@ -22,11 +22,11 @@
             %img{:src => "/teachlogoburst.png"}/ 
           %a.item{:href => "/"}
             Home
-          %a.item{:href => "/procedures/new"}
-            Add Procedure
+          %a.item{:href => "/procedures"}
+            Procedures
           - if current_user.admin? || current_user.trainer?
             %a.item{:href => "/users"}
-              Manage Users
+              Users
             %a.item{:href => "/locations"}
               Locations
           .right.menu
