@@ -1,6 +1,18 @@
 class ProceduresController < ApplicationController
   def index
-  	@procedures = Procedure.all
+    if current_user.admin?
+      @procedures = Procedure.all
+      @priviledged = true
+    elsif current_user.trainer?
+      #TODO: Limit this to all procedures within the residency location for this user.
+      @procedures = Procedure.all
+      @priviledged = true
+    else
+      @procedures = Procedure.where user_id: current_user.id
+      @priviledged = false
+    end
+
+    @users = User.all
   end
 
   def create
@@ -8,12 +20,22 @@ class ProceduresController < ApplicationController
 
     if current_user.admin?
       params[:procedure][:confirmation] = true
+      params[:procedure][:trainer_id] = current_user.id
+      trainee = User.find(params[:procedure][:user_id])
+      params[:procedure][:resident_name] = trainee.name
+      params[:procedure][:residentstatus] = trainee.status
     elsif current_user.trainer?
       params[:procedure][:confirmation] = true
+      params[:procedure][:trainer_id] = current_user.id
+      trainee = User.find(params[:procedure][:user_id])
+      params[:procedure][:resident_name] = trainee.name
+      params[:procedure][:residentstatus] = trainee.status
     else
       params[:procedure][:confirmation] = false
       params[:procedure][:residentstatus] = current_user.status
-      params[:procedure][:resident] = current_user.name
+      params[:procedure][:resident_name] = current_user.name
+      params[:procedure][:user_id] = current_user.id
+      params[:procedure][:trainer_id] = -1
     end
 
 
@@ -40,6 +62,6 @@ class ProceduresController < ApplicationController
   end
 
   def procedure_params
-  	params.require(:procedure).permit(:resident, :name, :date, :assistance, :confirmation, :notes, :gestation, :residentstatus)
+  	params.require(:procedure).permit(:resident_name, :name, :date, :assistance, :confirmation, :notes, :gestation, :residentstatus, :user_id, :trainer_id, :clinic_location)
   end
 end
