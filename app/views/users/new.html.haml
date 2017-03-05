@@ -1,14 +1,13 @@
 .ui.text.container
-  = form_for @user,:html => {:class => "ui form"} do |f|
+  = form_tag "/users/invite", method: "post", class: "ui form" do
     %div.field
-      = f.label :name
-      = f.text_field :name
+      = label_tag :name, "Name:"
+      = text_field_tag :name
     %div.field
-      = f.label :email
-      = f.text_field :email
+      = label_tag :email, "Email:"
+      = text_field_tag :email
     %div.field
-      = f.label :status
-      = f.text_field :status
-    %div.field
-      = f.submit 'Submit', :class => "ui primary button"
-      = button_tag "Cancel", :type => 'button', :class => "ui button"
+      = label_tag :status, "Status:"
+      = text_field_tag :status
+    = submit_tag "Invite", class: "ui primary button"
+    = link_to "Cancel", users_path
