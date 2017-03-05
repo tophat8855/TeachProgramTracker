@@ -4,14 +4,18 @@ class ProceduresController < ApplicationController
   end
 
   def create
-  	#This is broken and should be moved into the new method.  Don't know how to populate parameters before-hand yet.
+  	create_params = procedure_params
+
     if current_user.admin?
-      params[:confirmation] = true 
+      params[:procedure][:confirmation] = true
     elsif current_user.trainer?
-      params[:confirmation] = true
+      params[:procedure][:confirmation] = true
     else
-      params[:confirmation] = false
+      params[:procedure][:confirmation] = false
+      params[:procedure][:residentstatus] = current_user.status
+      params[:procedure][:resident] = current_user.name
     end
+
 
     #Resident status should be modified here once that is implemented.  R1, R2, R3, R4 
 
@@ -31,6 +35,7 @@ class ProceduresController < ApplicationController
       @residentName = current_user.name
     end
 
+  	@users = User.all
   	@procedure = Procedure.new
   end
 

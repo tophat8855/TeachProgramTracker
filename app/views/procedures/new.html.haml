@@ -7,7 +7,11 @@
 		%div.field
 			%label{:for => "name"} Resident Name:
 			- if @allowNameEntry == true
-				%input{:name => "procedure[resident]", :type => "string", :value => ""}/
+				%select{:name => "procedure[resident]", :multiple => false}
+					- @users.each do |user|
+						-# Value here should be the UserID that we want to go into the procedure DB.
+						%option{value: user.name}
+							= user.name << " -- " << user.email
 			- else
 				%input{:name => "procedure[resident]", :disabled => "", :placeholder => @residentName, :tabindex => "-1", :type => "string", :value => @residentName}/
 		%div.field
