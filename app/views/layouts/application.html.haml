@@ -6,7 +6,7 @@
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
-    
+
 
   %body
     %br/
@@ -24,9 +24,9 @@
             Home
           %a.item{:href => "/procedures/new"}
             Add Procedure
-          - if current_user.admin or current_user.trainer
-            %a.item{:href => "/users/new"}
-              Add User
+          - if current_user.admin? || current_user.trainer?
+            %a.item{:href => "/users"}
+              Manage Users
           .right.menu
             %a.ui.item{"data-method" => "delete", :href => "/my/users/sign_out", :rel => "nofollow"} Logout
       .ui.container

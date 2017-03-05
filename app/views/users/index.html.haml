@@ -1,3 +1,8 @@
+.ui.buttons
+  %button.ui.labeled.icon.button
+    %i.add.chevron.icon
+    %a.item{:href => "/users/new"} Add User
+
 .ui.list
   - @users.all.each do |user|
     .item
@@ -28,9 +33,3 @@
               = link_to "Edit", "/users/#{user.id}/edit", method: :get
               &emsp;
               = link_to "Destroy", "/users/#{user.id}", method: :delete, data: { confirm: "You sure?" }
-
-
-= form_tag("/users/invite", method: "post") do
-  = label_tag(:email, "Email address:")
-  = text_field_tag(:email)
-  = submit_tag("Invite")
