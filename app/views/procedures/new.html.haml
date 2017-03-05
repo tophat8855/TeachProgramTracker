@@ -16,7 +16,10 @@
 					- @users.each do |user|
 						-# Value here should be the UserID that we want to go into the procedure DB.
 						%option{value: user.id}
-							= user.name << " -- " << user.email
+							- if user.name != nil
+								= user.name << " -- " << user.email
+							- else
+								= user.email
 			- else
 				%input{:name => "procedure[user_id]", :disabled => "", :placeholder => @residentName, :tabindex => "-1", :type => "text", :value => @residentName}/
 		%div.field
@@ -28,7 +31,7 @@
 				%option{value: 'MVA'} MVA
 				%option{value: 'EVA'} EVA
 				%option{value: 'MAB'} MAB
-				%option{value: 'U/S'} U/S
+				%option{value: 'U/S'} U/S2
 				%option{value: 'IUD'} IUD
 				%option{value: 'Implant'} Implant
 				%option{value: 'Options'} Options Counseling
