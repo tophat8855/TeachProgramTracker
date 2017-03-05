@@ -32,7 +32,7 @@
         %td.collapsing
           = user.email
         %td.collapsing
-          location
+          = ResidencyLocation.where(id: user.id).name
         %td.collapsing
           - if user.trainer?
             = "Trainer"

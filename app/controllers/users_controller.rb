@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   def index
     if current_user.admin?
+      @locations = ResidencyLocation.all
       @users = User.where(admin: false).order("trainer DESC")
     elsif current_user.trainer?
       @users = User.where(admin: false, trainer: false, residency_location_id: current_user.residency_location_id)
@@ -44,8 +45,12 @@ class UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
 
     if @user.update_attributes(user_params)
+      puts "good!"
+      puts user_params.inspect
       redirect_to users_path
     else
+      puts "bad!"
+      puts user_params
       redirect_to edit_user_path(@user)
     end
   end
@@ -68,7 +73,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.permit(:email, :name, :residency_location_id, :status, :trainer,
+    params.require(:user).permit(:email, :name, :residency_location_id, :status, :trainer,
     :admin)
   end
 
