@@ -51,4 +51,10 @@
           - else
             %i.square.outline.icon
         %td.right.collapsing 
-          edit/veiw/destroy links here
+          %i.linkify.icon
+            .content
+              = link_to "View", "/procedures/#{p.id}", method: :get
+              &emsp;
+              = link_to "Edit", "/procedures/#{p.id}/edit", method: :get
+              &emsp;
+              = link_to "Destroy", "/procedures/#{p.id}", method: :delete, data: { confirm: "You sure?" }
