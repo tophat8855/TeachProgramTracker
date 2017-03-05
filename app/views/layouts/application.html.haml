@@ -9,6 +9,7 @@
     
 
   %body
+    %br/
     .ui.container
       - if notice or alert
         .ui.message
@@ -16,16 +17,19 @@
           = alert
           %i.close.icon
       - if user_signed_in?
-        .ui.secondary.pointing.menu
+        .ui.menu
+          .item
+            %img{:src => "/teachlogoburst.png"}/
           %a.item{:href => "/"}
             Home
           %a.item{:href => "/procedures/new"}
             Add Procedure
           - if current_user.admin or current_user.trainer
-            %a.item{:href => "/users"}
-              Edit Users
+            %a.item{:href => "/users/new"}
+              Add User
           .right.menu
             %a.ui.item{"data-method" => "delete", :href => "/my/users/sign_out", :rel => "nofollow"} Logout
+      .ui.container
       = yield
 
     :javascript
