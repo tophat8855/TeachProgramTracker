@@ -6,7 +6,7 @@
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
-    
+
 
   %body
     %br/
@@ -22,11 +22,11 @@
             %img{:src => "/teachlogoburst.png"}/ 
           %a.item{:href => "/"}
             Home
-          %a.item{:href => "/procedures"}
-            Procedures
-          - if current_user.admin or current_user.trainer
+          %a.item{:href => "/procedures/new"}
+            Add Procedure
+          - if current_user.admin? || current_user.trainer?
             %a.item{:href => "/users"}
-              Users
+              Manage Users
             %a.item{:href => "/locations"}
               Locations
           .right.menu
