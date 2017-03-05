@@ -10,4 +10,5 @@
       = label_tag :status, "Status:"
       = text_field_tag :status
     = submit_tag "Invite", class: "ui primary button"
-    = link_to "Cancel", users_path
+    %a{:href => "/users"}
+      = button_tag "Cancel", :type => 'button', :class => "ui button"

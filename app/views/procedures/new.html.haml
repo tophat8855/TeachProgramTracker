@@ -19,7 +19,7 @@
 		%div.field
 			%label{:for => "date"} Date:
 			%input{:name => "procedure[date]", :type => "date", :value => Date.today}/
-		%div.field 
+		%div.field
 			%label{:for => "procedure"} Procedure:
 			%select{:name => "procedure[name]", :multiple => false}
 				%option{value: 'MVA'} MVA
@@ -30,7 +30,7 @@
 				%option{value: 'Implant'} Implant
 				%option{value: 'Options'} Options Counseling
 				%option{value: 'Contraceptive'} Contraceptive Counseling
-		%div.field 
+		%div.field
 			%label{:for => "gest"} Weeks Gestation:
 			%input{:name => "procedure[gestation]", :type => "number", :value => ""}/
 		%div.field
@@ -54,13 +54,14 @@
 			%label{:for => "notes"} Notes:
 			%input{:name => "procedure[notes]", :type => "text", :value => ""}/
 		%input{:type => "submit", :name => "commit", :value => "Create Procedure", :class => "ui primary button"}
-		= button_tag "Cancel", :type => 'button', :class => "ui button"
+		%a{:href => "/procedures"}
+			= button_tag "Cancel", :type => 'button', :class => "ui button"
 
 -# Need to add clinic locations
 
 
 -# resident status inferred from resident
 -# confirmation status is unconfirmed
--# create many procedure objects for each selected procedure 
+-# create many procedure objects for each selected procedure
 -# http://www.randomsnippets.com/2008/02/21/how-to-dynamically-add-form-elements-via-javascript/
 -# form behaviors

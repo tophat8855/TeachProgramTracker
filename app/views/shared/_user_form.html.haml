@@ -20,4 +20,5 @@
       = f.check_box :admin
     %div.field
       = f.submit 'Submit', :class => "ui primary button"
-      = link_to "Cancel", users_path
+      %a{:href => "/users"}
+        = button_tag "Cancel", :type => 'button', :class => "ui button"
