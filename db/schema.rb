@@ -16,10 +16,16 @@ ActiveRecord::Schema.define(version: 20170304224417) do
   enable_extension "plpgsql"
 
   create_table "procedures", force: :cascade do |t|
+    t.string   "resident"
     t.date     "date"
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "assistance"
+    t.boolean  "confirmation"
+    t.text     "notes"
+    t.float    "gestation"
+    t.string   "residentstatus"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "users", force: :cascade do |t|

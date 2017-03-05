@@ -13,6 +13,6 @@ class ProceduresController < ApplicationController
   end
 
   def procedure_params
-  	params.require(:procedure).permit(:name, :date)
+  	params.require(:procedure).permit(:resident, :name, :date, :assistance, :confirmation, :notes, :gestation, :residentstatus)
   end
 end
