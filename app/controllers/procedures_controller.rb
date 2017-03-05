@@ -45,6 +45,12 @@ class ProceduresController < ApplicationController
   	redirect_to procedures_path
   end
 
+  def destroy
+    procedure = Procedure.find_by(id: params[:id])
+    procedure.destroy
+    redirect_to procedures_path
+  end
+
   def new
   	if current_user.admin?
       @allowNameEntry = true
@@ -59,6 +65,10 @@ class ProceduresController < ApplicationController
 
   	@users = User.all
   	@procedure = Procedure.new
+  end
+
+  def show
+    @procedure = Procedure.find_by(id: params[:id])
   end
 
   def procedure_params
