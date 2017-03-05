@@ -1,36 +1,36 @@
-.ui.list
+%a{:href => "/users/new"}
+  .ui.buttons
+    %button.ui.labeled.icon.button
+      %i.plus.icon
+      Add New User
+
+
+%table.ui.celled.striped.table
+  %thead
+    %tr
+      %th{:colspan => "6"}
+        %div Users
   - @users.all.each do |user|
-    .item
-      %i.users.icon
-      .content
-        = user.name
-        .ui.list
-          .item
-            %i.mail.icon
-            .content
-              = user.email
-          .item
-            %i.marker.icon
-            .content
-              put location
-          .item
-            %i.folder.icon
-            .content
-              - if user.trainer?
-                = "Trainer"
-              - else
-                = "Normal User"
-          .item
-            %i.linkify.icon
-            .content
-              = link_to "View", "/users/#{user.id}", method: :get
-              &emsp;
-              = link_to "Edit", "/users/#{user.id}/edit", method: :get
-              &emsp;
-              = link_to "Destroy", "/users/#{user.id}", method: :delete, data: { confirm: "You sure?" }
-
-
-= form_tag("/users/invite", method: "post") do
-  = label_tag(:email, "Email address:")
-  = text_field_tag(:email)
-  = submit_tag("Invite")
+    %tbody
+      %tr
+        %td.collapsing
+          %i.users.icon
+          = user.name
+        %td.collapsing
+          %i.mail.icon
+          = user.email
+        %td.collapsing 
+          %i.marker.icon
+          location
+        %td.collapsing 
+          %i.folder.icon
+          - if user.trainer?
+            = "Trainer"
+          - else
+            = "Normal User"
+        %td.right.collapsing 
+          = link_to "View", "/users/#{user.id}", method: :get
+          &emsp;
+          = link_to "Edit", "/users/#{user.id}/edit", method: :get
+          &emsp;
+          = link_to "Destroy", "/users/#{user.id}", method: :delete, data: { confirm: "You sure?" }

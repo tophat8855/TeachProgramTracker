@@ -1,8 +1,3 @@
-.ui.buttons
-  %button.ui.labeled.icon.button
-    %i.left.chevron.icon
-    %a.item{:href => "/users"} Back to Users List
-
 
 .ui.text.container
   = form_for @user,:html => {:class => "ui form"} do |f|
@@ -17,3 +12,6 @@
       = f.text_field :status
     %div.field
       = f.submit 'Submit', :class => "ui primary button"
+      = button_tag "Cancel", :type => 'button', :class => "ui button"
+
+

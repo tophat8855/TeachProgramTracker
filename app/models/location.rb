@@ -1,2 +1,0 @@
-class ResidencyLocation < ApplicationRecord
-end

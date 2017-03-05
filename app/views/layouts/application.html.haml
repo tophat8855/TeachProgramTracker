@@ -22,11 +22,13 @@
             %img{:src => "/teachlogoburst.png"}/ 
           %a.item{:href => "/"}
             Home
-          %a.item{:href => "/procedures/new"}
-            Add Procedure
+          %a.item{:href => "/procedures"}
+            Procedures
           - if current_user.admin or current_user.trainer
-            %a.item{:href => "/users/new"}
-              Add User
+            %a.item{:href => "/users"}
+              Users
+            %a.item{:href => "/locations"}
+              Locations
           .right.menu
             %a.ui.item{"data-method" => "delete", :href => "/my/users/sign_out", :rel => "nofollow"} Logout
       .ui.container
