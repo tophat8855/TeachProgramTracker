@@ -53,4 +53,6 @@ end
 
 gem 'rails_12factor', group: :production
 
+gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'
+
 ruby '2.4.0'
