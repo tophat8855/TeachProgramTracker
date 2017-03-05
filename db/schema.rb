@@ -21,6 +21,19 @@ ActiveRecord::Schema.define(version: 20170305014458) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "procedures", force: :cascade do |t|
+    t.string   "resident"
+    t.date     "date"
+    t.string   "name"
+    t.string   "assistance"
+    t.boolean  "confirmation"
+    t.text     "notes"
+    t.float    "gestation"
+    t.string   "residentstatus"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
     t.string   "encrypted_password",     default: "",    null: false
