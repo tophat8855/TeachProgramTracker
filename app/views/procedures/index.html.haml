@@ -32,7 +32,7 @@
           Confirmation Status
         %th.right.collapsing
   %tbody      
-  - @procedures.each do |p|
+  - (@procedures.order(date: :desc)).each do |p|
     - if p != nil
       %tr
         %td.collapsing
