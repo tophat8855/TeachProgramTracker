@@ -22,7 +22,7 @@ To run this rails app locally, run
 ''''createuser -s --username=postgres YOURUSERNAME'''
 This will create a superuser by connecting as postgres.
 
-Run: 
+Run:
 ''''rake db:create'''
 
 from within the root of this repository.
@@ -43,3 +43,8 @@ Before running the rails server, make a secret key in secrets.yml in the config 
 '''
 
 Run 'rails server' to see it in localhost:3000.
+
+**Testing**
+
+Please run tests before committing and pushing.
+```bundle exec rspec```
