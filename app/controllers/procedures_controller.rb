@@ -38,7 +38,6 @@ class ProceduresController < ApplicationController
       params[:procedure][:trainer_id] = -1
     end
 
-
     #Resident status should be modified here once that is implemented.  R1, R2, R3, R4 
 
   	Procedure.create(procedure_params)
@@ -49,6 +48,33 @@ class ProceduresController < ApplicationController
     procedure = Procedure.find_by(id: params[:id])
     procedure.destroy
     redirect_to procedures_path
+  end
+
+  def update
+  	#TODO: Update the parameters that are intercepted in create in update if needed.
+  	@procedure = Procedure.find_by(id: params[:id])
+
+    if @procedure.update_attributes(procedure_params)
+      redirect_to procedures_path
+    else
+      redirect_to edit_procedure_path(@procedure)
+    end
+  end
+
+  def edit
+    if current_user.admin?
+      @allowNameEntry = true
+      @residentName = ""
+    elsif current_user.trainer?
+      @allowNameEntry = true
+      @residentName = ""
+    else
+      @allowNameEntry = false
+      @residentName = current_user.name
+    end
+
+  	@users = User.all
+  	@procedure = Procedure.find_by(id: params[:id])
   end
 
   def new

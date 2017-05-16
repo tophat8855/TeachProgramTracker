@@ -1,0 +1,54 @@
+.ui.text.container
+  = form_for @procedure,:html => {:class => "ui form"} do |f|
+    %div.field
+      = f.label :user_id
+      - if @allowNameEntry == true
+        %select{:name => "procedure[user_id]", :multiple => false}
+          - @users.each do |user|
+            %option{value: user.id}
+              - if user.name != nil
+                = user.name << " -- " << user.email
+              - else
+                = user.email
+      - else
+        = f.text_field :user_id, disabled: true, value: @residentName, placeholder: @residentName
+    %div.field
+      = f.label :date
+      = f.date_field :date
+    %div.field
+      = f.label :name, 'Procedure Name'
+      = f.select :name, ['MVA', 'IUD', 'MAB', 'U/S', 'IUD', 'Implant', 'Options', 'Contraceptive']
+    %div.field
+      = f.label :gestation
+      = f.number_field :gestation
+    %div.field
+      = f.label :assistance
+      = f.select :assistance, ['Observed', 'Assisted', 'All', 'Solo']
+    %div.field
+      = f.label :clinic_location, 'Clinic Location'
+      = f.select :clinic_location, ['San Francisco', 'Pluto', 'Qonos', 'Mars']
+    %div.field
+      = f.submit 'Submit', :class => "ui primary button"
+      %a{:href => "/users"}
+        = button_tag "Cancel", :type => 'button', :class => "ui button"
+
+
+//TODO: Pull procedure names from the database and list all possible options from the procedure DB table.
+//TODO: Pull clinic locations from the DB
+//TODO: Get CSS working with "ui form" class
+
+/ /*
+/ 		%div.field
+/ 			%label{:for => "gest"} Weeks Gestation:
+/ 			%input{:name => "procedure[gestation]", :type => "number", :value => ""}/
+/ 		-#TODO: Clinic locations should be populated based off of residency locations.
+/ 		%div.field
+/ 			%label{:for => "clinic_location"} Clinic Location:
+/ 			%select{:name => "procedure[clinic_location]", :multiple => false}
+/ 				%option{value: 'Qonos'} Kronos
+/ 				%option{value: 'Pluto'} Pluto
+/ 				%option{value: 'Mars'} Mars
+/ 				%option{value: 'The Mooon'} The Moon
+/ 				%option{value: 'Pluto'} Pluto
+/ 				%option{value: 'Io'} Io
+/ 		%div.field
