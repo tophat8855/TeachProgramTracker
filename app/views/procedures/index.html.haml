@@ -32,7 +32,8 @@
           Confirmation Status
         %th.right.collapsing
   %tbody      
-  - (@procedures.order(date: :desc)).each do |p|
+  -# (@procedures.order(date: :desc)).each do |p|
+  - @procedures.each do |p|
     - if p != nil
       %tr
         %td.collapsing
@@ -56,3 +57,22 @@
           = link_to "Edit", "/procedures/#{p.id}/edit", method: :get
           &emsp;
           = link_to "Destroy", "/procedures/#{p.id}", method: :delete, data: { confirm: "You sure?" }
+
+%h1 Procedures
+= form_for_filterrific @filterrific do |f|
+  %div
+    Search
+    = f.text_field(                                |
+        :search_query,                             |
+        class: 'filterrific-periodically-observed' |
+      )                                            |
+  %div
+    = link_to(                 |
+        'Reset filters',       |
+        reset_filterrific_url, |
+      )                        |
+  = render_filterrific_spinner
+= render(                           |
+    partial: 'procedures/list',       |
+    locals: { procedures: @procedures } |
+  )                                 |

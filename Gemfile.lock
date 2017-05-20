@@ -87,6 +87,7 @@ GEM
     faker (1.7.3)
       i18n (~> 0.5)
     ffi (1.9.18)
+    filterrific (2.1.2)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     haml (4.0.7)
@@ -233,6 +234,9 @@ GEM
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
+    will_paginate (3.1.5)
+    will_paginate_semantic_ui (2.1.0)
+      will_paginate (> 3.0.0)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
@@ -247,6 +251,7 @@ DEPENDENCIES
   devise_invitable
   factory_girl_rails
   faker
+  filterrific
   haml-rails
   jbuilder (~> 2.5)
   jquery-rails
@@ -266,6 +271,7 @@ DEPENDENCIES
   turbolinks (~> 5)
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
+  will_paginate_semantic_ui
 
 RUBY VERSION
    ruby 2.4.0p0

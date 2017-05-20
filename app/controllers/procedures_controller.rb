@@ -12,6 +12,17 @@ class ProceduresController < ApplicationController
       @priviledged = false
     end
 
+	@filterrific = initialize_filterrific(
+		Procedure,
+		params[:filterrific]
+	) or return
+	@procedures = @filterrific.find.page(params[:page])
+
+	respond_to do |format|
+		format.html
+		format.js
+	end
+
     @users = User.all
   end
 
