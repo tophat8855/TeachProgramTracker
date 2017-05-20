@@ -16,9 +16,14 @@ RSpec.describe 'authentication', type: :feature do
   context 'when the user is authenticated' do
     let(:email) { 'user@example.com' }
     let(:password) { 'password' }
+    let!(:location) { FactoryGirl.create(:residency_location) }
 
     before do
-      FactoryGirl.create(:user, email: email, password: password, password_confirmation: password)
+      FactoryGirl.create(:user,
+        email: email,
+        residency_location_id: location.id,
+        password: password,
+        password_confirmation: password)
     end
 
     it 'logs the user in' do
