@@ -26,15 +26,6 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  def create
-    user = User.new(user_params)
-    if user.save
-      redirect_to users_path
-    else
-      render :new
-    end
-  end
-
   def edit
     @user = User.find_by(id: params[:id])
     redirect_to root_path unless current_user_has_access_to_user(@user)
@@ -61,7 +52,13 @@ class UsersController < ApplicationController
   end
 
   def invite
-    User.invite!(email: params[:email])
+    User.invite!(
+      email: user_params[:email],
+      name: user_params[:name],
+      residency_location_id: user_params[:residency_location_id],
+      status: user_params[:status],
+      email: user_params[:email]
+    )
     redirect_to users_path
   end
 
