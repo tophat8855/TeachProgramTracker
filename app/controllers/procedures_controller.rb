@@ -53,6 +53,26 @@ class ProceduresController < ApplicationController
   def update
   	#TODO: Update the parameters that are intercepted in create in update if needed.
   	@procedure = Procedure.find_by(id: params[:id])
+    
+    if current_user.admin?
+      params[:procedure][:confirmation] = true
+      params[:procedure][:trainer_id] = current_user.id
+      trainee = User.find(params[:procedure][:user_id])
+      params[:procedure][:resident_name] = trainee.name
+      params[:procedure][:residentstatus] = trainee.status
+    elsif current_user.trainer?
+      params[:procedure][:confirmation] = true
+      params[:procedure][:trainer_id] = current_user.id
+      trainee = User.find(params[:procedure][:user_id])
+      params[:procedure][:resident_name] = trainee.name
+      params[:procedure][:residentstatus] = trainee.status
+    else
+      params[:procedure][:confirmation] = false
+      params[:procedure][:residentstatus] = current_user.status
+      params[:procedure][:resident_name] = current_user.name
+      params[:procedure][:user_id] = current_user.id
+      params[:procedure][:trainer_id] = -1
+    end
 
     if @procedure.update_attributes(procedure_params)
       redirect_to procedures_path
