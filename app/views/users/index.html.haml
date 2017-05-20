@@ -9,7 +9,7 @@
   %thead
     %tr
       %th{:colspan => "6"}
-        %div Users
+        %div Residents
       %tr
         %th.collapsing
           %i.users.icon
@@ -32,7 +32,7 @@
         %td.collapsing
           = user.email
         %td.collapsing
-          = ResidencyLocation.where(id: user.id).name
+          = @locations.where(id: user.residency_location_id).first.name
         %td.collapsing
           - if user.trainer?
             = "Trainer"

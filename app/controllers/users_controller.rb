@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   def index
+    @locations = ResidencyLocation.all
+
     if current_user.admin?
-      @locations = ResidencyLocation.all
       @users = User.where(admin: false).order("trainer DESC")
     elsif current_user.trainer?
       @users = User.where(admin: false, trainer: false, residency_location_id: current_user.residency_location_id)
