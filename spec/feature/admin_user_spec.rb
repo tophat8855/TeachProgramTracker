@@ -11,11 +11,20 @@ RSpec.describe 'Admin management of users', type: :feature do
     password_confirmation: 'password')
   }
 
+  let!(:trainer) { FactoryGirl.create(:user,
+    name: 'Trainer Name',
+    email: 'trainer@email.com',
+    residency_location_id: location.id,
+    trainer: true,
+    password: 'password',
+    password_confirmation: 'password')
+  }
+
   before do
     login_admin
   end
 
-  fdescribe 'list of users' do
+  describe 'list of users' do
     it 'shows all users and their corresponding data' do
       click_on 'Users'
 
@@ -23,7 +32,12 @@ RSpec.describe 'Admin management of users', type: :feature do
       expect(page).to have_content 'Resident Name'
       expect(page).to have_content 'resident@email.com'
       expect(page).to have_content location.name
+      expect(page).to have_content 'R2'
 
+      expect(page).to have_content 'Trainer Name'
+      expect(page).to have_content 'trainer@email.com'
+      expect(page).to have_content location.name
+      expect(page).to have_content 'Trainer'
     end
   end
 

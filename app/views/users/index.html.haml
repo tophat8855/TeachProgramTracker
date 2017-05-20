@@ -37,7 +37,7 @@
           - if user.trainer?
             = "Trainer"
           - else
-            = "Normal User"
+            = user.status
         %td.right.collapsing
           = link_to "View", "/users/#{user.id}", method: :get
           &emsp;
