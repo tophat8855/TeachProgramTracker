@@ -10,7 +10,7 @@
     </div>
     <div class="field">
       <%= f.label :status, "Status:" %>
-      <%= f.text_field :status %>
+      <%= f.select :status, ['R2', 'R3', 'Other']%>
     </div>
     <div class="field">
       <%= f.label :residency_location_id, "Location:" %>
