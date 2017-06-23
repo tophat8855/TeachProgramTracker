@@ -105,6 +105,7 @@ class ProceduresController < ApplicationController
 
   	@users = User.all
   	@procedure = Procedure.new
+    @clinic_locations = Procedure.all.pluck(:clinic_location).uniq
   end
 
   def show
