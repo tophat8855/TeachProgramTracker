@@ -30,6 +30,10 @@
     %div.field
       = f.label :clinic_location, 'Clinic Location'
       = f.select :clinic_location, @clinic_locations
+    %div.ui.horizontal.divider
+      Or
+    %div.field
+      = text_field_tag 'New Clinic Location'
     %div.field
       = f.label :notes
       = f.text_field :notes
@@ -40,7 +44,6 @@
 
 
 //TODO: Pull procedure names from the database and list all possible options from the procedure DB table.
-//TODO: Pull clinic locations from the DB
 //TODO: Get CSS working with "ui form" class
 
 / /*

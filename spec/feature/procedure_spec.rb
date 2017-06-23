@@ -70,7 +70,7 @@ RSpec.describe 'Procedure Features', type: :feature do
   end
 
   describe 'create procedure' do
-    fit 'creates a procedure with desired details' do
+    it 'creates a procedure with desired details' do
       click_link 'Record New Procedure'
 
       fill_in 'Date', with: '2017-07-01'
@@ -84,6 +84,63 @@ RSpec.describe 'Procedure Features', type: :feature do
       click_on 'Submit'
 
       expect(page).to have_content 'asdf'
+    end
+
+    context 'with a custom location' do
+      it 'creates a procedure' do
+        click_link 'Record New Procedure'
+
+        fill_in 'Date', with: '2017-07-01'
+        select 'IUD', from: 'Procedure Name'
+        fill_in 'Gestation', with: 8
+        select 'Observed', from: 'Assistance'
+        select trainer.name, from: 'Trainer'
+        fill_in 'New Clinic Location', with: 'Mars'
+        fill_in 'Notes', with: 'asdfasdf'
+
+        click_on 'Submit'
+
+        expect(page).to have_content 'Mars'
+      end
+    end
+  end
+
+  describe 'update procedure' do
+    it 'updates a procedure with desired details' do
+      page.all('td.right.collapsing')[1].click_link('Edit')
+
+      fill_in 'Date', with: '2017-07-01'
+      select 'Contraceptive', from: 'Procedure Name'
+      fill_in 'Gestation', with: 12
+      select 'Performed', from: 'Assistance'
+      select trainer.name, from: 'Trainer'
+      select location.name, from: 'Clinic Location'
+      fill_in 'Notes', with: 'jkl;jkl;'
+
+      click_on 'Submit'
+
+      expect(page).to have_content 'jkl;jkl;'
+      expect(page).to have_content 'Contraceptive'
+    end
+
+    context 'with a custom location' do
+      it 'updates a procedure' do
+        page.all('td.right.collapsing')[1].click_link('Edit')
+
+        fill_in 'Date', with: '2017-07-01'
+        select 'Contraceptive', from: 'Procedure Name'
+        fill_in 'Gestation', with: 12
+        select 'Performed', from: 'Assistance'
+        select trainer.name, from: 'Trainer'
+        fill_in 'New Clinic Location', with: 'Mars'
+        fill_in 'Notes', with: 'jkl;jkl;'
+
+        click_on 'Submit'
+
+        expect(page).to have_content 'Mars'
+        expect(page).to have_content 'jkl;jkl;'
+        expect(page).to have_content 'Contraceptive'
+      end
     end
   end
 
