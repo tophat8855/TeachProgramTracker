@@ -25,6 +25,9 @@
       = f.label :assistance
       = f.select :assistance, ['Observed', 'Performed']
     %div.field
+      = f.label :trainer_id, 'Trainer'
+      = f.collection_select(:trainer_id, @trainers, :id, :name)
+    %div.field
       = f.label :clinic_location, 'Clinic Location'
       = f.select :clinic_location, @clinic_locations
     %div.field

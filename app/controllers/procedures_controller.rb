@@ -15,6 +15,24 @@ class ProceduresController < ApplicationController
     @users = User.all
   end
 
+  def new
+  	@users = User.all
+  	@procedure = Procedure.new
+    @trainers = User.all.where(trainer: true)
+    @clinic_locations = Procedure.all.pluck(:clinic_location).uniq
+
+    if current_user.admin?
+      @allowNameEntry = true
+      @residentName = ""
+    elsif current_user.trainer?
+      @allowNameEntry = true
+      @residentName = ""
+    else
+      @allowNameEntry = false
+      @residentName = current_user.name
+    end
+  end
+
   def create
   	create_params = procedure_params
 
@@ -32,7 +50,6 @@ class ProceduresController < ApplicationController
       params[:procedure][:residentstatus] = current_user.status
       params[:procedure][:resident_name] = current_user.name
       params[:procedure][:user_id] = current_user.id
-      params[:procedure][:trainer_id] = -1
     end
 
     #Resident status should be modified here once that is implemented.  R1, R2, R3, R4
@@ -89,23 +106,6 @@ class ProceduresController < ApplicationController
 
   	@users = User.all
   	@procedure = Procedure.find_by(id: params[:id])
-  end
-
-  def new
-  	if current_user.admin?
-      @allowNameEntry = true
-      @residentName = ""
-    elsif current_user.trainer?
-      @allowNameEntry = true
-      @residentName = ""
-    else
-      @allowNameEntry = false
-      @residentName = current_user.name
-    end
-
-  	@users = User.all
-  	@procedure = Procedure.new
-    @clinic_locations = Procedure.all.pluck(:clinic_location).uniq
   end
 
   def show

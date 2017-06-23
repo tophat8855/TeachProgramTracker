@@ -77,6 +77,7 @@ RSpec.describe 'Procedure Features', type: :feature do
       select 'IUD', from: 'Procedure Name'
       fill_in 'Gestation', with: 8
       select 'Observed', from: 'Assistance'
+      select trainer.name, from: 'Trainer'
       select location.name, from: 'Clinic Location'
       fill_in 'Notes', with: 'asdfasdf'
 
