@@ -1,50 +1,53 @@
 # TeachProgramTracker
 TEACH Program Software Stack
 
-Using ruby 2.4.0 and rails 5.0.2
+## Table of Contents
+- [Getting Started](#getting-started)
+    - [Workspace Setup](#workspace-setup)
+    - [Running Tests](#running-the-tests)
+    - [Starting the Server](#starting-the-server)
+- [Contribution](#contribution)
+    -[Pushing Code](#pushing-code)
 
-Setting up assuming you have rails and ruby setup.  If you're having major issues, ensure that your global ruby
-is pointing somewhere that makes sense.  '''which ruby''' can help with that.
+## Getting Started
+The following steps will help you get your workstation set up.
 
-If there's a problem and you're using rvm, try:
-'''rvm --default use ruby-2.4.0'''
+### Prerequesites
+- Ruby 2.4.0
+- Rails 5.0.2
+- Postgresql
 
-If on an ubuntu distro, install postgresql along with your rails implementation by:
+### Workspace Setup
+``` 
+git clone git@gihub.com:tophat8855/teachprogramtracker.git
 
-'''apt-get -y install postgresql postgresql-contrib libpq-dev'''
+cd teachprogramtracker
+bundle install
 
-To make sure that it's running, try:
-'''sudo su - postgres && psql'''
+rake db:create db:migrate db:seed
+```
 
-To run this rails app locally, run
+### Running the tests
+This app uses rspec for testing.
 
-'''sudo su && su postgres'''
-''''createuser -s --username=postgres YOURUSERNAME'''
-This will create a superuser by connecting as postgres.
+```
+bundle exec rspec
+```
 
-Run:
-''''rake db:create'''
+### Starting the server
 
-from within the root of this repository.
+```
+rails s
+```
 
-If you get LoadError: cannot load such file -- bundler/setup, run:
-'''gem install bundler'''
+The server should be running on port 3000.
 
-If everything is working correctly, rake db:create will return:
-'''Created database 'TeachProgramTracker_development'''
-'''Created database 'TeachProgramTracker_test'''
+## Contribution
 
-If missing gems, run bundle install.
+### Pushing code
 
-Before running the rails server, make a secret key in secrets.yml in the config folder.
+```
+rspec && git push
+```
 
-'''development:
-  secret_key_base: "Anything you like"
-'''
-
-Run 'rails server' to see it in localhost:3000.
-
-**Testing**
-
-Please run tests before committing and pushing.
-```bundle exec rspec```
+Pushing the code to master will also deploy to the heroku app.
