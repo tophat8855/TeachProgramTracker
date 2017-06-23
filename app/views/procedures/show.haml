@@ -1,3 +1,33 @@
-= @procedure.name
-
-%p This page will contain more information about the procedure in question.
+%table.ui.very.basic.collapsing.celled.table
+  %tbody
+    %tr
+      %td
+        Date
+      %td
+        = @procedure.date.to_s
+    %tr
+      %td
+        .content
+          Name
+      %td
+        = @procedure.name
+    %tr
+      %td
+        Assistance?
+      %td
+        = @procedure.assistance
+    %tr
+      %td
+        Trainer
+      %td
+        = @trainer_name
+    %tr
+      %td
+        Location
+      %td
+        = @procedure.clinic_location
+    %tr
+      %td
+        Notes
+      %td
+        = @procedure.notes

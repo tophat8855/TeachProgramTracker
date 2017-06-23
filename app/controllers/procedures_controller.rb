@@ -109,6 +109,7 @@ class ProceduresController < ApplicationController
 
   def show
     @procedure = Procedure.find_by(id: params[:id])
+    @trainer_name = @procedure.trainer_id != -1 ? User.find_by(id: @procedure.trainer_id).name : ''
   end
 
   def procedure_params

@@ -25,17 +25,17 @@ RSpec.describe 'Admin management of users', type: :feature do
     residentstatus: resident.status,
     user_id: resident.id,
     trainer_id: trainer.id,
-    clinic_location: location.name
-    ) }
+    clinic_location: location.name) 
+  }
 
   before do
     login_admin
+
+    click_on 'Users'
   end
 
   describe 'list of users' do
     it 'shows all users and their corresponding data' do
-      click_on 'Users'
-
       expect(page).to have_content 'Residents'
       expect(page).to have_content 'Resident Name'
       expect(page).to have_content 'resident@email.com'
@@ -51,7 +51,6 @@ RSpec.describe 'Admin management of users', type: :feature do
 
   describe 'user info page' do
     it 'shows the user information' do
-      click_on 'Users'
       page.all('td.right.collapsing')[1].click_link('View')
 
       expect(page).to have_content 'Resident Name'
