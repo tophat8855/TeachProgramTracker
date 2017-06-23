@@ -20,6 +20,14 @@ RSpec.describe 'Admin management of users', type: :feature do
     password_confirmation: 'password')
   }
 
+  let!(:procedure) { FactoryGirl.create(:procedure,
+    resident_name: resident.name,
+    residentstatus: resident.status,
+    user_id: resident.id,
+    trainer_id: trainer.id,
+    clinic_location: location.name
+    ) }
+
   before do
     login_admin
   end
@@ -38,6 +46,21 @@ RSpec.describe 'Admin management of users', type: :feature do
       expect(page).to have_content 'trainer@email.com'
       expect(page).to have_content location.name
       expect(page).to have_content 'Trainer'
+    end
+  end
+
+  describe 'user info page' do
+    it 'shows the user information' do
+      click_on 'Users'
+      page.all('td.right.collapsing')[1].click_link('View')
+
+      expect(page).to have_content 'Resident Name'
+      expect(page).to have_content 'resident@email.com'
+      expect(page).to have_content location.name
+      within 'tbody' do
+        expect(page).to have_content procedure.name
+        expect(page).to have_content procedure.date.to_s
+      end
     end
   end
 

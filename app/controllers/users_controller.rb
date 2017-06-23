@@ -13,6 +13,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by(id: params[:id])
+    @location = ResidencyLocation.find_by(id: @user.residency_location_id)
+    @procedures = Procedure.where user_id: @user.id
 
     unless current_user_has_access_to_user(@user)
       redirect_to root_path

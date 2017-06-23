@@ -1,4 +1,31 @@
-= @user.name
-= @user.status
+.ui.items
+  .item
+    .content
+      .header
+      = @user.name
+      .meta
+        %span.email
+        = @user.email
+        %span.status
+        = @user.status
+        %span.location
+        = @location.name
+      %table.description.celled.table.ui
+        Procedures
+        %thead
+          %tr
+            %th
+              Date
+            %th
+              Name
+            %th
+              Location
 
-%p Will need to populate it with a list of procedures once the migration is done.
+        %tbody
+          - (@procedures.order(date: :desc)).each do |p|
+            %td.collapsing
+              = link_to p.date.to_s, procedure_path(id: p.id)
+            %td
+              = p.name
+            %td
+              =p.clinic_location
