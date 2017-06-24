@@ -17,7 +17,7 @@
       = f.date_field :date
     %div.field
       = f.label :name, 'Procedure Name'
-      = f.select :name, ['MVA', 'IUD', 'MAB', 'U/S', 'Implant', 'Options', 'Contraceptive']
+      = f.select :name, Procedure::NAMES
     %div.field
       = f.label :gestation
       = f.number_field :gestation

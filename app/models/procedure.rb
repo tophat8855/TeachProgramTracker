@@ -15,4 +15,6 @@ class Procedure < ActiveRecord::Base
       'other',
       'away rotation'
     ]
+
+  NAMES = ['MVA', 'IUD', 'MAB', 'U/S', 'Implant', 'Options', 'Contraceptive']
 end

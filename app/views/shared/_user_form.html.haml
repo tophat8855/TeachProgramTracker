@@ -8,7 +8,7 @@
       = f.text_field :email
     %div.field
       = f.label :status
-      = f.text_field :status
+      = f.select :status, User::STATUSES
     %div.field
       = f.label 'Residency Location'
       = f.collection_select(:residency_location_id, ResidencyLocation.all, :id, :name)
