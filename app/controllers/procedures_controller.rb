@@ -30,7 +30,7 @@ class ProceduresController < ApplicationController
     @users = User.all
   	@procedure = Procedure.new
     @trainers = User.all.where(trainer: true)
-    @clinic_locations = Procedure.all.pluck(:clinic_location).uniq
+    @clinic_locations = (Procedure::CLINIC_LOCATIONS + Procedure.all.pluck(:clinic_location)).uniq
   end
 
   def create
@@ -75,7 +75,7 @@ class ProceduresController < ApplicationController
   	@users = User.all
   	@procedure = Procedure.find_by(id: params[:id])
     @trainers = User.all.where(trainer: true)
-    @clinic_locations = Procedure.all.pluck(:clinic_location).uniq
+    @clinic_locations = (Procedure::CLINIC_LOCATIONS + Procedure.all.pluck(:clinic_location)).uniq
   end
 
   def update
