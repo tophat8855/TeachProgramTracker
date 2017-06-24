@@ -29,7 +29,7 @@
       = f.collection_select(:trainer_id, @trainers, :id, :name)
     %div.field
       = f.label :clinic_location, 'Clinic Location'
-      = f.select :clinic_location, @clinic_locations
+      = f.select :clinic_location, @clinic_locations, include_blank: true
     %div.ui.horizontal.divider
       Or
     %div.field
