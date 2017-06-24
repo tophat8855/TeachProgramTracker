@@ -25,7 +25,7 @@ RSpec.describe 'Admin management of users', type: :feature do
     residentstatus: resident.status,
     user_id: resident.id,
     trainer_id: trainer.id,
-    clinic_location: location.name) 
+    clinic_location: location.name)
   }
 
   before do
@@ -60,6 +60,23 @@ RSpec.describe 'Admin management of users', type: :feature do
         expect(page).to have_content procedure.name
         expect(page).to have_content procedure.date.to_s
       end
+    end
+  end
+
+  describe 'user creation' do
+    it 'creates user with desired attributes' do
+      click_link 'Invite New User'
+
+      fill_in 'Name', with: 'New User'
+      fill_in 'Email', with: 'new_user@email.com'
+      select 'R3', from: 'Status'
+      select location.name, from: 'Residency Location'
+      check 'Trainer'
+      check 'Admin'
+
+      click_on 'Invite'
+
+      expect(page).to have_content 'new_user@email.com'
     end
   end
 

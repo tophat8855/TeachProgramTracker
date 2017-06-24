@@ -3,7 +3,7 @@ class UsersController < ApplicationController
     @locations = ResidencyLocation.all
 
     if current_user.admin?
-      @users = User.where(admin: false).order("trainer DESC")
+      @users = User.order("trainer DESC")
     elsif current_user.trainer?
       @users = User.where(admin: false, trainer: false, residency_location_id: current_user.residency_location_id)
     else
@@ -55,7 +55,9 @@ class UsersController < ApplicationController
       email: user_params[:email],
       name: user_params[:name],
       residency_location_id: user_params[:residency_location_id],
-      status: user_params[:status]
+      status: user_params[:status],
+      trainer: user_params[:trainer],
+      admin: user_params[:admin]
     )
     redirect_to users_path
   end
