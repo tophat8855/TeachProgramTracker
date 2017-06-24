@@ -22,7 +22,7 @@ RSpec.describe 'Procedure Features', type: :feature do
 
   let!(:procedure_1) { FactoryGirl.create(:procedure,
     resident_name: resident.name,
-    residentstatus: resident.status,
+    resident_status: resident.status,
     user_id: resident.id,
     clinic_location: location.name,
     trainer_id: trainer.id)
@@ -30,7 +30,7 @@ RSpec.describe 'Procedure Features', type: :feature do
 
   let!(:procedure_2) { FactoryGirl.create(:procedure,
     resident_name: resident.name,
-    residentstatus: resident.status,
+    resident_status: resident.status,
     name: 'MVA',
     user_id: resident.id,
     clinic_location: location.name)

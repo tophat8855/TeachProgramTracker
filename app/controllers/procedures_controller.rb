@@ -44,14 +44,14 @@ class ProceduresController < ApplicationController
       params[:procedure][:trainer_id] = current_user.id
       trainee = User.find(params[:procedure][:user_id])
       params[:procedure][:resident_name] = trainee.name
-      params[:procedure][:residentstatus] = trainee.status
+      params[:procedure][:resident_status] = trainee.status
     elsif current_user.trainer?
       params[:procedure][:trainer_id] = current_user.id
       trainee = User.find(params[:procedure][:user_id])
       params[:procedure][:resident_name] = trainee.name
-      params[:procedure][:residentstatus] = trainee.status
+      params[:procedure][:resident_status] = trainee.status
     else
-      params[:procedure][:residentstatus] = current_user.status
+      params[:procedure][:resident_status] = current_user.status
       params[:procedure][:resident_name] = current_user.name
       params[:procedure][:user_id] = current_user.id
     end
@@ -89,14 +89,14 @@ class ProceduresController < ApplicationController
       params[:procedure][:trainer_id] = current_user.id
       trainee = User.find(params[:procedure][:user_id])
       params[:procedure][:resident_name] = trainee.name
-      params[:procedure][:residentstatus] = trainee.status
+      params[:procedure][:resident_status] = trainee.status
     elsif current_user.trainer?
       params[:procedure][:trainer_id] = current_user.id
       trainee = User.find(params[:procedure][:user_id])
       params[:procedure][:resident_name] = trainee.name
-      params[:procedure][:residentstatus] = trainee.status
+      params[:procedure][:resident_status] = trainee.status
     else
-      params[:procedure][:residentstatus] = current_user.status
+      params[:procedure][:resident_status] = current_user.status
       params[:procedure][:resident_name] = current_user.name
       params[:procedure][:user_id] = current_user.id
     end
@@ -120,6 +120,6 @@ class ProceduresController < ApplicationController
   end
 
   def procedure_params
-  	params.require(:procedure).permit(:resident_name, :name, :date, :assistance, :notes, :gestation, :residentstatus, :user_id, :trainer_id, :clinic_location)
+  	params.require(:procedure).permit(:resident_name, :name, :date, :assistance, :notes, :gestation, :resident_status, :user_id, :trainer_id, :clinic_location)
   end
 end

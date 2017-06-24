@@ -22,7 +22,7 @@ RSpec.describe 'Admin management of users', type: :feature do
 
   let!(:procedure) { FactoryGirl.create(:procedure,
     resident_name: resident.name,
-    residentstatus: resident.status,
+    resident_status: resident.status,
     user_id: resident.id,
     trainer_id: trainer.id,
     clinic_location: location.name)

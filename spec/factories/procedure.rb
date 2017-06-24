@@ -4,7 +4,7 @@ FactoryGirl.define do
     date { Date.today - 7.days }
     name { 'IUD' }
     assistance { 'Observed' }
-    residentstatus { 'R2' }
+    resident_status { 'R2' }
     user_id { 2 }
     trainer_id { 1000 }
     clinic_location { 'Oakland' }
