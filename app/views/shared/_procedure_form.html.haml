@@ -1,6 +1,6 @@
 .ui.text.container
   = form_for @procedure,:html => {:class => "ui form"} do |f|
-    %div.field
+    .field
       = f.label 'Resident'
       - if @allowNameEntry == true
         %select{:name => "procedure[user_id]", :multiple => false}
@@ -12,32 +12,32 @@
                 = user.email
       - else
         = f.text_field :user_id, disabled: true, value: @residentName, placeholder: @residentName
-    %div.field.date
+    .field.date
       = f.label :date
       = f.date_field :date
-    %div.field
+    .field
       = f.label :name, 'Procedure Name'
       = f.select :name, Procedure::NAMES
-    %div.field
+    .field
       = f.label :gestation
       = f.number_field :gestation
-    %div.field
+    .field
       = f.label :assistance
       = f.select :assistance, ['Observed', 'Performed']
-    %div.field
+    .field
       = f.label :trainer_id, 'Trainer'
       = f.collection_select(:trainer_id, @trainers, :id, :name)
-    %div.field
+    .field
       = f.label :clinic_location, 'Clinic Location'
       = f.select :clinic_location, @clinic_locations, include_blank: true
-    %div.ui.horizontal.divider
+    .ui.horizontal.divider
       Or
-    %div.field
+    .field
       = text_field_tag 'New Clinic Location'
-    %div.field
+    .field
       = f.label :notes
       = f.text_field :notes
-    %div.field
+    .field
       = f.submit 'Submit', :class => "ui primary button"
       %a{:href => "/users"}
         = button_tag "Cancel", :type => 'button', :class => "ui button"
