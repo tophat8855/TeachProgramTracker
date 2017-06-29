@@ -26,10 +26,13 @@ gem 'sendgrid-ruby'
 group :development, :test do
   gem 'byebug', platform: :mri
   gem 'rspec-rails', '~> 3.5'
-  gem 'capybara'
   gem 'launchy'
   gem 'factory_girl_rails'
   gem 'faker'
+end
+
+group :test do
+  gem 'capybara-selenium'
 end
 
 group :development do
