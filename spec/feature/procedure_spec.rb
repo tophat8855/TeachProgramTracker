@@ -1,8 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Procedure Features', type: :feature do
-  let!(:location) { FactoryGirl.create(:residency_location) }
-  let!(:resident) { FactoryGirl.create(:user,
+  let!(:location)  { FactoryGirl.create(:residency_location) }
+  let!(:location2) { FactoryGirl.create(:residency_location) }
+  let!(:resident)  { FactoryGirl.create(:user,
     name: 'Resident Name',
     email: 'resident@email.com',
     residency_location_id: location.id,
@@ -33,7 +34,7 @@ RSpec.describe 'Procedure Features', type: :feature do
     resident_status: resident.status,
     name: 'MVA',
     user_id: resident.id,
-    clinic_location: location.name)
+    clinic_location: location2.name)
   }
 
   before do
@@ -56,7 +57,9 @@ RSpec.describe 'Procedure Features', type: :feature do
 
   describe 'show procedure details' do
     it 'shows the details of a procedure' do
-      page.all('td.right.collapsing')[1].click_link('View')
+      link_column = page.all('td.right.collapsing')[2]
+
+      link_column.click_link('View')
 
       expect(page).to have_content procedure_1.name
       expect(page).to have_content procedure_1.date.to_s
@@ -78,12 +81,15 @@ RSpec.describe 'Procedure Features', type: :feature do
       fill_in 'Gestation', with: 8
       select 'Observed', from: 'Assistance'
       select trainer.name, from: 'Trainer'
-      select location.name, from: 'Clinic Location'
+      select location2.name, from: 'Clinic Location'
       fill_in 'Notes', with: 'asdfasdf'
 
       click_on 'Submit'
 
-      expect(page).to have_content 'asdf'
+      first_procedure_row = page.all('tr')[2]
+
+      expect(first_procedure_row).to have_content 'asdf'
+      expect(first_procedure_row).to have_content location2.name
     end
 
     context 'with a custom location' do
@@ -103,11 +109,32 @@ RSpec.describe 'Procedure Features', type: :feature do
         expect(page).to have_content 'Mars'
       end
     end
+
+    context 'with a custom trainer' do
+      it 'creates a procedure' do
+        click_link 'Record New Procedure'
+
+        fill_in 'Date', with: '2017-07-01'
+        select 'IUD', from: 'Procedure Name'
+        fill_in 'Gestation', with: 8
+        select 'Observed', from: 'Assistance'
+
+        fill_in 'New Trainer', with: 'Not-in-system Trainer'
+
+        select location.name, from: 'Clinic Location'
+        fill_in 'Notes', with: 'asdfasdf'
+
+        click_on 'Submit'
+
+        expect(page).to have_content 'Not-in-system Trainer'
+      end
+    end
   end
 
   describe 'update procedure' do
     it 'updates a procedure with desired details' do
-      page.all('td.right.collapsing')[1].click_link('Edit')
+      link_column = page.all('td.right.collapsing')[2]
+      link_column.click_link('Edit')
 
       fill_in 'Date', with: '2017-07-01'
       select 'Contraceptive', from: 'Procedure Name'
@@ -125,7 +152,9 @@ RSpec.describe 'Procedure Features', type: :feature do
 
     context 'with a custom location' do
       it 'updates a procedure' do
-        page.all('td.right.collapsing')[1].click_link('Edit')
+        link_column = page.all('td.right.collapsing')[2]
+
+        link_column.click_link('Edit')
 
         fill_in 'Date', with: '2017-07-01'
         select 'Contraceptive', from: 'Procedure Name'

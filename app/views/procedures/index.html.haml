@@ -29,10 +29,13 @@
           %i.user.icon
           Resident
         %th.right.collapsing
+          %i.user.icon
+          Trainer
+        %th.right.collapsing
   %tbody
   - (@procedures.order(date: :desc)).each do |p|
     - if p != nil
-      %tr
+      %tr.tablerow
         %td.collapsing
           = p.name
         %td.collapsing
@@ -43,6 +46,8 @@
           =p.notes
         %td.right.collapsing
           =p.resident_name
+        %td.right.collapsing
+          =p.trainer_name
         %td.right.collapsing
           = link_to "View", "/procedures/#{p.id}", method: :get
           &emsp;

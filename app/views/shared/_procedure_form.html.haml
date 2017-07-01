@@ -25,8 +25,12 @@
       = f.label :assistance
       = f.select :assistance, ['Observed', 'Performed']
     .field
-      = f.label :trainer_id, 'Trainer'
-      = f.collection_select(:trainer_id, @trainers, :id, :name)
+      = f.label :trainer_name, 'Trainer'
+      = f.select :trainer_name, @trainers, include_blank: true
+    .ui.horizontal.divider
+      Or
+    .field
+      = text_field_tag 'New Trainer'
     .field
       = f.label :clinic_location, 'Clinic Location'
       = f.select :clinic_location, @clinic_locations, include_blank: true

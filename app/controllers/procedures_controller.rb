@@ -29,15 +29,20 @@ class ProceduresController < ApplicationController
 
     @users = User.all
   	@procedure = Procedure.new
-    @trainers = User.all.where(trainer: true)
+    @trainers = (User.where(trainer: true).pluck(:name) + Procedure.all.pluck(:trainer_name)).uniq.select(&:present?)
     @clinic_locations = (Procedure::CLINIC_LOCATIONS + Procedure.all.pluck(:clinic_location)).uniq
   end
 
   def create
-  	create_params = procedure_params
-
-    if params['New Clinic Location']
+    unless params['New Clinic Location'].empty?
       params[:procedure][:clinic_location] = params['New Clinic Location']
+    end
+
+    unless params['New Trainer'].empty?
+      params[:procedure][:trainer_name] = params['New Trainer']
+    else
+      trainer = User.find_by(name: params[:procedure][:trainer_name])
+      params[:procedure][:trainer_id] = trainer.id
     end
 
     if current_user.admin?
@@ -74,15 +79,22 @@ class ProceduresController < ApplicationController
 
   	@users = User.all
   	@procedure = Procedure.find_by(id: params[:id])
-    @trainers = User.all.where(trainer: true)
+    @trainers = (User.where(trainer: true).pluck(:name) + Procedure.all.pluck(:trainer_name)).uniq.select(&:present?)
     @clinic_locations = (Procedure::CLINIC_LOCATIONS + Procedure.all.pluck(:clinic_location)).uniq
   end
 
   def update
   	@procedure = Procedure.find_by(id: params[:id])
 
-    if params['New Clinic Location']
+    unless params['New Clinic Location'].empty?
       params[:procedure][:clinic_location] = params['New Clinic Location']
+    end
+
+    unless params['New Trainer'].empty?
+      params[:procedure][:trainer_name] = params['New Trainer']
+    else
+      trainer = User.find_by(name: params[:procedure][:trainer_name])
+      params[:procedure][:trainer_id] = trainer.id
     end
 
     if current_user.admin?
@@ -120,6 +132,6 @@ class ProceduresController < ApplicationController
   end
 
   def procedure_params
-  	params.require(:procedure).permit(:resident_name, :name, :date, :assistance, :notes, :gestation, :resident_status, :user_id, :trainer_id, :clinic_location)
+  	params.require(:procedure).permit(:resident_name, :name, :date, :assistance, :notes, :gestation, :resident_status, :user_id, :trainer_id, :trainer_name, :clinic_location)
   end
 end
