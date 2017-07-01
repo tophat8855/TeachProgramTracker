@@ -18,7 +18,7 @@ en:
     mailer:
       invitation_instructions:
         subject: "Welcome to the TEACH Program"
-        hello: "Dear %{name}"
+        hello: "Dear %{name},"
         someone_invited_you: "Welcome to the TEACH Program, you will be using this tool for tracking your procedures through the academic year. After you accept the link, save the webpage to the home screen on your phone for quick access during clinic."
         save_webpage: "Save this webpage: %{url}"
         accept: "Accept invitation"
