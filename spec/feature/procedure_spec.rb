@@ -76,14 +76,13 @@ RSpec.describe 'Procedure Features', type: :feature do
     it 'creates a procedure with desired details' do
       click_link 'Record New Procedure'
 
-      fill_in 'Date', with: '2017-07-01'
+      fill_in 'Date', with: Date.today
       select 'IUD', from: 'Procedure Name'
       fill_in 'Gestation', with: 8
       select 'Observed', from: 'Assistance'
       select trainer.name, from: 'Trainer'
       select location2.name, from: 'Clinic Location'
       fill_in 'Notes', with: 'asdfasdf'
-
       click_on 'Submit'
 
       first_procedure_row = page.all('tr')[2]
