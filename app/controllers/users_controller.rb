@@ -79,6 +79,17 @@ class UsersController < ApplicationController
         return false
       end
     end
+
     return true
   end
 end
+# self --> self           yes
+# admin --> admin         no (should be yes?)
+# admin --> trainer       yes
+# admin --> resident      yes
+# trainer --> admin       no
+# trainer --> trainer     yes (should be no?)
+# trainer --> resident    yes
+# resident --> admin      no
+# resident --> trainer    no
+# resident --> resident   no
