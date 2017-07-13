@@ -13,6 +13,13 @@ RSpec.describe UsersController, type: :controller do
     admin: true
   )}
 
+  let(:admin_to_view) { FactoryGirl.create(:user,
+    name: 'Admin To View',
+    email: 'admin_to_view@email.com',
+    residency_location_id: location.id,
+    admin: true
+  )}
+
   let(:trainer) { FactoryGirl.create(:user,
     name: 'Trainer',
     email: 'trainer@email.com',
@@ -20,9 +27,22 @@ RSpec.describe UsersController, type: :controller do
     trainer: true
   )}
 
+  let(:trainer_to_view) { FactoryGirl.create(:user,
+    name: 'Trainer To View',
+    email: 'trainer_to_view@email.com',
+    residency_location_id: location.id,
+    trainer: true
+  )}
+
   let(:resident)  { FactoryGirl.create(:user,
-    name: 'User',
-    email: 'user@email.com',
+    name: 'Resident',
+    email: 'resident@email.com',
+    residency_location_id: location.id,
+  )}
+
+  let(:resident_to_view)  { FactoryGirl.create(:user,
+    name: 'Resident to View',
+    email: 'resident_to_view@email.com',
     residency_location_id: location.id,
   )}
 
@@ -70,7 +90,7 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
-  describe '#show' do #TODO: Expand out once we hear back from product what the permissions should look like
+  describe '#show' do
     context 'instance variable assignement' do
       before do
         sign_in admin
@@ -92,35 +112,80 @@ RSpec.describe UsersController, type: :controller do
       end
     end
 
-    context 'when the current_user is admin and does have access to the user' do
+    context 'when the current_user is admin' do
       before do
         sign_in admin
       end
 
-      it 'redirects to root' do
+      it 'can view self' do
+        get :show, params: { id: admin.id }
+        expect(response.status).to be(200)
+      end
+
+      it 'can view other admins' do
+        get :show, params: { id: admin_to_view.id }
+        expect(response.status).to be(200)
+      end
+
+      it 'can view trainers' do
+        get :show, params: { id: trainer.id }
+        expect(response.status).to be(200)
+      end
+
+      it 'can view residents' do
+        get :show, params: { id: trainer.id }
+        expect(response.status).to be(200)
+      end
+    end
+
+    context 'when the current_user is trainer' do
+      before do
+        sign_in trainer
+      end
+
+      it 'can view self' do
+        get :show, params: { id: trainer.id }
+        expect(response.status).to be(200)
+      end
+
+      it 'cannot view admins' do
+        get :show, params: { id: admin.id }
+        expect(response).to redirect_to(root_path)
+      end
+
+      it 'cannot view other trainers' do
+        get :show, params: { id: trainer_to_view.id }
+        expect(response).to redirect_to(root_path)
+      end
+
+      it 'can view residents' do
         get :show, params: { id: resident.id }
         expect(response.status).to be(200)
       end
     end
 
-    context 'when the current_user is resident without access to admin' do
+    context 'when the current_user is resident' do
       before do
         sign_in resident
       end
 
-      it 'redirects to root' do
+      it 'can view self' do
+        get :show, params: { id: resident.id }
+        expect(response.status).to be(200)
+      end
+
+      it 'cannot view admins' do
         get :show, params: { id: admin.id }
         expect(response).to redirect_to(root_path)
       end
-    end
 
-    context 'when the current_user is trainer without access to user' do
-      before do
-        sign_in trainer
+      it 'cannot view trainers' do
+        get :show, params: { id: trainer.id }
+        expect(response).to redirect_to(root_path)
       end
 
-      it 'redirects to root' do
-        get :show, params: { id: admin.id }
+      it 'cannot view other residents' do
+        get :show, params: { id: resident_to_view.id }
         expect(response).to redirect_to(root_path)
       end
     end

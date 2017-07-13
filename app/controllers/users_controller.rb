@@ -70,26 +70,16 @@ class UsersController < ApplicationController
   end
 
   def current_user_has_access_to_user(user)
-    if current_user != user
-      if user.admin?
-        return false
-      elsif user.trainer? && !current_user.trainer? && !current_user.admin?
-        return false
-      elsif !current_user.trainer? && !current_user.admin?
-        return false
-      end
+    return true if current_user.admin? || current_user == user
+
+    if user.admin?
+      return false
+    elsif user.trainer? && !current_user.admin?
+      return false
+    elsif !current_user.trainer? && !current_user.admin?
+      return false
     end
 
     return true
   end
 end
-# self --> self           yes
-# admin --> admin         no (should be yes?)
-# admin --> trainer       yes
-# admin --> resident      yes
-# trainer --> admin       no
-# trainer --> trainer     yes (should be no?)
-# trainer --> resident    yes
-# resident --> admin      no
-# resident --> trainer    no
-# resident --> resident   no
