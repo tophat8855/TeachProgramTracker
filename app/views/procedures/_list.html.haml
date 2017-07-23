@@ -17,10 +17,10 @@
       %tr
         %th.collapsing
           %i.heartbeat.icon
-          Procedure Type
+          =filterrific_sorting_link(@filterrific, :name, {label: "Procedure Name"})
         %th.collapsing
           %i.calendar.icon
-          Date
+          =filterrific_sorting_link(@filterrific, :date, {label: "Date"})
         %th.collapsing
           %i.marker.icon
           Clinic
@@ -29,58 +29,33 @@
           Notes
         %th.right.collapsing
           %i.user.icon
-          Resident
+          =filterrific_sorting_link(@filterrific, :resident_name, {label: "Resident"})
         %th.right.collapsing
-          Confirmation Status
+          %i.user.icon
+          =filterrific_sorting_link(@filterrific, :trainer_name, {label: "Trainer"})
         %th.right.collapsing
   %tbody
-    %th= filterrific_sorting_link(@filterrific, :name)
-    %th Procedure Name
-    %th Clinic Location
-    %th Registered at
-  - @procedures.each do |procedure|
-    %tr.procedure
-      %td.name= procedure.name
-      %td.email= procedure.clinic_location
-      /%td.country= student.country_name
-      /%td.created_at= student.created_at.to_date.to_s(:long)
-  -# (@procedures.order(date: :desc)).each do |p|
-/   - @procedures.each do |p|
-/     - if p != nil
-/       %tr
-/         %td.collapsing
-/           = p.name
-/         %td.collapsing
-/           =p.date.to_s
-/         %td.collapsing 
-/           =p.clinic_location
-/         %td 
-/           =p.notes
-/         %td.right.collapsing 
-/           =p.resident_name
-/         %td.right.collapsing 
-/           - if p.confirmation
-/             %i.checkmark.box.icon
-/           - else
-/             %i.square.outline.icon
-/         %td.right.collapsing 
-/           = link_to "View", "/procedures/#{p.id}", method: :get
-/           &emsp;
-/           = link_to "Edit", "/procedures/#{p.id}/edit", method: :get
-/           &emsp;
-/           = link_to "Destroy", "/procedures/#{p.id}", method: :delete, data: { confirm: "You sure?" }
+  - @procedures.each do |p|
+    - if p != nil
+      %tr.tablerow
+        %td.collapsing
+          =p.name
+        %td.collapsing
+          =p.date.to_s
+        %td.collapsing
+          =p.clinic_location
+        %td
+          =p.notes
+        %td.right.collapsing
+          =p.resident_name
+        %td.right.collapsing
+          =p.trainer_name
+        %td.right.collapsing
+          = link_to "View", "/procedures/#{p.id}", method: :get
+          &emsp;
+          = link_to "Edit", "/procedures/#{p.id}/edit", method: :get
+          &emsp;
+          = link_to "Destroy", "/procedures/#{p.id}", method: :delete, data: { confirm: "You sure?" }
 
-/ %table.table
-/   %tr
-/     %th= filterrific_sorting_link(@filterrific, :name)
-/     %th Procedure Name
-/     %th Clinic Location
-/     %th Registered at
-/   - @procedures.each do |procedure|
-/     %tr.procedure
-/       %td.name= procedure.name
-/       %td.email= procedure.clinic_location
-/       /%td.country= student.country_name
-/       /%td.created_at= student.created_at.to_date.to_s(:long)
 .chardin_box{ :'data-position' => 'top', :'data-intro' => "will_paginate's paginator works as expected." }
   = will_paginate @procedures, renderer: WillPaginateSemanticUi::ActionView::Renderer

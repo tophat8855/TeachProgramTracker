@@ -8,7 +8,7 @@ class Procedure < ActiveRecord::Base
                 ]
 
     # default for will_paginate
-    self.per_page = 100
+    self.per_page = 25
 
     scope :search_query, lambda { |query|
         return nil  if query.blank?
@@ -47,7 +47,11 @@ class Procedure < ActiveRecord::Base
     when /^name_/
       order("LOWER(procedures.name) #{ direction }, LOWER(procedures.name) #{ direction }")
     when /^clinic_location_/
-      order("LOWER(procedures.clinic_location), LOWER(procedures.clinic_location) #{ direction }")
+      order("LOWER(procedures.clinic_location) #{ direction }, LOWER(procedures.clinic_location) #{ direction }")
+    when /^resident_name_/
+      order("LOWER(procedures.resident_name) #{ direction }, LOWER(procedures.resident_name) #{ direction }")
+    when /^trainer_name_/
+      order("LOWER(procedures.trainer_name) #{ direction }, LOWER(procedures.trainer_name) #{ direction }")
     else
       raise(ArgumentError, "Invalid sort option: #{ sort_option.inspect }")
     end
