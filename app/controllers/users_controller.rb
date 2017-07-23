@@ -64,7 +64,7 @@ class UsersController < ApplicationController
       redirect_to users_path
     else
       flash[:error] = {email: ['has already been taken']}
-      return redirect_to new_user_path
+      redirect_to new_user_path
     end
   end
 
