@@ -1,7 +1,20 @@
-= link_to 'New Residency Location', new_residency_location_path, method: :get
+%a{:href => new_residency_location_path}
+  .ui.buttons
+    %button.ui.labeled.icon.button
+      %i.plus.icon
+      New Residency Location
 
-%ul
-  - @residency_locations.all.each do |location|
-    %li
-      = location.name
-      = link_to 'Delete Location', "/residency_locations/#{location.id}", method: :delete, data: { confirm: 'You sure?' }
+%table.ui.celled.striped.table
+  %thead
+    %tr
+      %th.collapsing
+        %i.marker.icon
+        Location
+      %th.right.collapsing
+  %tbody
+    - @residency_locations.all.each do |location|
+      %tr
+        %td.collapsing
+          = location.name
+        %td.right.collapsing
+          = link_to 'Delete Location', "/residency_locations/#{location.id}", method: :delete, data: { confirm: 'You sure?' }
