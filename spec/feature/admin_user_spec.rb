@@ -79,6 +79,23 @@ RSpec.describe 'Admin management of users', type: :feature do
 
       expect(page).to have_content 'new_user@email.com'
     end
+
+    context 'when creating a user with a duplicate email' do
+      it 'shows a flash warning that email has already been taken' do
+        click_link 'Invite New User'
+
+        fill_in 'Name', with: 'New User'
+        fill_in 'Email', with: resident.email
+        select 'R3', from: 'Status'
+        select location1.name, from: 'Residency Location'
+        check 'Trainer'
+        check 'Admin'
+
+        click_on 'Invite'
+
+        expect(page).to have_content 'Email has already been taken'
+      end
+    end
   end
 
   describe 'updating a user' do

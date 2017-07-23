@@ -52,15 +52,20 @@ class UsersController < ApplicationController
   end
 
   def invite
-    User.invite!(
-      email: user_params[:email],
-      name: user_params[:name],
-      residency_location_id: user_params[:residency_location_id],
-      status: user_params[:status],
-      trainer: user_params[:trainer],
-      admin: user_params[:admin]
-    )
-    redirect_to users_path
+    if User.find_by(email: user_params[:email]).nil?
+      User.invite!(
+        email: user_params[:email],
+        name: user_params[:name],
+        residency_location_id: user_params[:residency_location_id],
+        status: user_params[:status],
+        trainer: user_params[:trainer],
+        admin: user_params[:admin]
+      )
+      redirect_to users_path
+    else
+      flash[:error] = {email: ['has already been taken']}
+      redirect_to new_user_path
+    end
   end
 
   private

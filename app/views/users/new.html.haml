@@ -1,5 +1,10 @@
-.ui.text.container.form
-  = form_for @user, url: '/users/invite', method: 'post' do |f|
+.ui.text.container
+  - if flash[:error]
+    - flash[:error].each do |key, value|
+      .error.ui.red.message
+        = key.titleize
+        = value[0]
+  = form_for @user, url: '/users/invite', method: 'post', html: {class: "ui form"} do |f|
     .field
       = f.label :name
       = f.text_field :name
