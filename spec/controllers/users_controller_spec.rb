@@ -190,4 +190,30 @@ RSpec.describe UsersController, type: :controller do
       end
     end
   end
+
+  describe '#update' do
+    before do
+      sign_in admin
+    end
+
+    context 'when updating an email with a unique email' do
+      it 'should update the email of the user' do
+        patch :update, params: { id: resident.id, user: { email: 'unique_email@email.com' } }
+        expect(response).to redirect_to(users_path)
+      end
+    end
+
+    context 'when updating an email to another email in the system' do
+      it 'should not update email, should stay on edit page' do
+        patch :update, params: { id: resident.id, user: { email: trainer.email } }
+        expect(response).to redirect_to(edit_user_path(resident.id))
+        expect(flash[:error]).to eq({email: ['has already been taken']})
+
+        unchanged_user = User.find(resident.id)
+        expect(unchanged_user.email).to eq('resident@email.com')
+        expect(unchanged_user.name).to eq('Resident')
+        expect(unchanged_user.residency_location_id).to eq(location.id)
+      end
+    end
+  end
 end

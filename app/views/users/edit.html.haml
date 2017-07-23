@@ -1,4 +1,9 @@
 .ui.text.container
+  - if flash[:error]
+    - flash[:error].each do |key, value|
+      %p.error.ui.red.message
+        = key.titleize
+        = value[0]
   = form_for @user,:html => {:class => "ui form"} do |f|
     .field
       = f.label :name
