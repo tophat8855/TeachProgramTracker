@@ -44,6 +44,24 @@ class ProceduresController < ApplicationController
     @clinic_locations = (Procedure::CLINIC_LOCATIONS + Procedure.all.pluck(:clinic_location)).uniq
   end
 
+  def newagain
+    if current_user.admin?
+      @allowNameEntry = true
+      @residentName = ""
+    elsif current_user.trainer?
+      @allowNameEntry = true
+      @residentName = ""
+    else
+      @allowNameEntry = false
+      @residentName = current_user.name
+    end
+
+    @users = User.all
+    @procedure = Procedure.new(localprocedure)
+    @trainers = (User.where(trainer: true).pluck(:name) + Procedure.all.pluck(:trainer_name)).uniq.select(&:present?)
+    @clinic_locations = (Procedure::CLINIC_LOCATIONS + Procedure.all.pluck(:clinic_location)).uniq
+  end
+
   def create
     unless params['New Clinic Location'].empty?
       params[:procedure][:clinic_location] = params['New Clinic Location']
@@ -72,8 +90,16 @@ class ProceduresController < ApplicationController
       params[:procedure][:user_id] = current_user.id
     end
 
-  	Procedure.create(procedure_params)
-  	redirect_to procedures_path
+    Procedure.create(procedure_params)
+    print 'PRINTINGINGINEJFAKSBFAHSBFKA\n'
+    puts params.inspect
+    if params[:addanother] == 'Submit and Add Another'
+      localprocedure = procedure_params
+      redirect_to '/procedures/newagain'
+      #pass in params from THIS
+    else
+      redirect_to procedures_path
+    end
   end
 
   def edit
