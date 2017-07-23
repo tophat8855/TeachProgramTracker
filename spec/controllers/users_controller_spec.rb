@@ -191,6 +191,43 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
+  describe '#invite' do
+    before do
+      sign_in admin
+    end
+
+    context 'when creating a user with a unique email' do
+      it 'should create the user' do
+        post :invite, params: { user: {
+          email: Faker::Internet.email,
+          name: 'Name',
+          residency_location_id: location.id,
+          status: 'R2',
+          trainer: false,
+          admin: false
+          }
+        }
+        expect(response).to redirect_to(users_path)
+      end
+    end
+
+    context 'when creating a user with duplicate email' do
+      it 'should not send invite or create user' do
+        post :invite, params: { id: resident.id, user: {
+          email: resident.email,
+          name: 'Name',
+          residency_location_id: location.id,
+          status: 'R2',
+          trainer: false,
+          admin: false
+          }
+        }
+        expect(response).to redirect_to(new_user_path)
+        expect(flash[:error][:email]).to eq(['has already been taken'])
+      end
+    end
+  end
+
   describe '#update' do
     before do
       sign_in admin
