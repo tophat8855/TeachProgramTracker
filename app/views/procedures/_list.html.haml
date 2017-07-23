@@ -9,7 +9,7 @@
 %table.ui.celled.table
   %thead
     %tr
-      %th{:colspan => "7"}
+      %th{:colspan => "8"}
         - if @priviledged == false
           %div Your procedure history
         - else
@@ -24,6 +24,9 @@
         %th.collapsing
           %i.marker.icon
           Clinic
+        %th.collapsing
+          %i.hourglass.half.icon
+          Gestation
         %th
           %i.sticky.note.icon
           Notes
@@ -44,6 +47,8 @@
           =p.date.to_s
         %td.collapsing
           =p.clinic_location
+        %td.collapsing
+          =p.gestation
         %td
           =p.notes
         %td.right.collapsing
