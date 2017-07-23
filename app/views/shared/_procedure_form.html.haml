@@ -1,7 +1,7 @@
 .ui.text.container
   = form_for @procedure,:html => {:class => "ui form"} do |f|
-    %div.field
-      = f.label :user_id
+    .field
+      = f.label 'Resident'
       - if @allowNameEntry == true
         %select{:name => "procedure[user_id]", :multiple => false}
           - @users.each do |user|
@@ -12,29 +12,44 @@
                 = user.email
       - else
         = f.text_field :user_id, disabled: true, value: @residentName, placeholder: @residentName
-    %div.field
+    .field.date
       = f.label :date
       = f.date_field :date
-    %div.field
+    .field
       = f.label :name, 'Procedure Name'
-      = f.select :name, ['MVA', 'IUD', 'MAB', 'U/S', 'Implant', 'Options', 'Contraceptive']
-    %div.field
+      = f.select :name, Procedure::NAMES
+    .field
       = f.label :gestation
       = f.number_field :gestation
-    %div.field
+    .field
       = f.label :assistance
-      = f.select :assistance, ['Observed', 'Assisted', 'All', 'Solo']
-    %div.field
+      = f.select :assistance, ['Observed', 'Performed']
+    .field
+      = f.label :trainer_name, 'Trainer'
+      = f.select :trainer_name, @trainers, include_blank: true
+    .ui.horizontal.divider
+      Or
+    .field
+      Custom Trainer
+      = text_field_tag 'New Trainer'
+    .field
       = f.label :clinic_location, 'Clinic Location'
-      = f.select :clinic_location, ['San Francisco', 'Pluto', 'Qonos', 'Mars']
-    %div.field
+      = f.select :clinic_location, @clinic_locations, include_blank: true
+    .ui.horizontal.divider
+      Or
+    .field
+      Custom Clinic Location
+      = text_field_tag 'New Clinic Location'
+    .field
+      = f.label :notes
+      = f.text_field :notes
+    .field
       = f.submit 'Submit', :class => "ui primary button"
-      %a{:href => "/users"}
+      %a{:href => "/procedures"}
         = button_tag "Cancel", :type => 'button', :class => "ui button"
 
 
 //TODO: Pull procedure names from the database and list all possible options from the procedure DB table.
-//TODO: Pull clinic locations from the DB
 //TODO: Get CSS working with "ui form" class
 
 / /*

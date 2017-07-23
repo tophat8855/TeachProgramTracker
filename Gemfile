@@ -28,10 +28,14 @@ gem 'will_paginate_semantic_ui'
 group :development, :test do
   gem 'byebug', platform: :mri
   gem 'rspec-rails', '~> 3.5'
-  gem 'capybara'
   gem 'launchy'
   gem 'factory_girl_rails'
   gem 'faker'
+end
+
+group :test do
+  gem 'capybara-selenium'
+  gem 'rails-controller-testing'
 end
 
 group :development do

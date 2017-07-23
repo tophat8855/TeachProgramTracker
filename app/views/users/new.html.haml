@@ -1,5 +1,5 @@
-.ui.text.container
-  = form_for @user,:html => {:class => "ui form"} do |f|
+.ui.text.container.form
+  = form_for @user, url: '/users/invite', method: 'post' do |f|
     .field
       = f.label :name
       = f.text_field :name
@@ -15,7 +15,9 @@
     .ui
       = f.label :trainer
       = f.check_box :trainer
-    .field
-      = f.submit 'Submit', :class => "ui primary button"
-      %a{:href => "/users"}
-        = button_tag "Cancel", :type => 'button', :class => "ui button"
+    .ui
+      = f.label :admin
+      = f.check_box :admin
+    = submit_tag 'Invite', :class => "ui primary button"
+    %a{:href => "/users"}
+      = button_tag "Cancel", :type => 'button', :class => "ui button"

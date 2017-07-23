@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
   def index
+    @locations = ResidencyLocation.all
+
     if current_user.admin?
-      @locations = ResidencyLocation.all
-      @users = User.where(admin: false).order("trainer DESC")
+      @users = User.order("trainer DESC")
     elsif current_user.trainer?
       @users = User.where(admin: false, trainer: false, residency_location_id: current_user.residency_location_id)
     else
@@ -12,10 +13,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by(id: params[:id])
-
-    #@resdency_location = ResidencyLocation.find_by(id: params[:residency_location_id])
-    # Uncomment after Procedure Table is created
-    # @procedures = Procedure.all.where(user_id = @user.id)
+    @location = ResidencyLocation.find_by(id: @user.residency_location_id)
+    @procedures = Procedure.where user_id: @user.id
 
     unless current_user_has_access_to_user(@user)
       redirect_to root_path
@@ -57,7 +56,8 @@ class UsersController < ApplicationController
       name: user_params[:name],
       residency_location_id: user_params[:residency_location_id],
       status: user_params[:status],
-      email: user_params[:email]
+      trainer: user_params[:trainer],
+      admin: user_params[:admin]
     )
     redirect_to users_path
   end
@@ -70,15 +70,16 @@ class UsersController < ApplicationController
   end
 
   def current_user_has_access_to_user(user)
-    if current_user != user
-      if user.admin?
-        return false
-      elsif user.trainer? && !current_user.trainer? && !current_user.admin?
-        return false
-      elsif !current_user.trainer? && !current_user.admin?
-        return false
-      end
+    return true if current_user.admin? || current_user == user
+
+    if user.admin?
+      return false
+    elsif user.trainer? && !current_user.admin?
+      return false
+    elsif !current_user.trainer? && !current_user.admin?
+      return false
     end
+
     return true
   end
 end

@@ -9,7 +9,7 @@
   %thead
     %tr
       %th{:colspan => "6"}
-        %div Users
+        %div Residents
       %tr
         %th.collapsing
           %i.users.icon
@@ -32,15 +32,15 @@
         %td.collapsing
           = user.email
         %td.collapsing
-          = ResidencyLocation.where(id: user.id).name
+          = @locations.where(id: user.residency_location_id).first.name
         %td.collapsing
           - if user.trainer?
             = "Trainer"
           - else
-            = "Normal User"
+            = user.status
         %td.right.collapsing
           = link_to "View", "/users/#{user.id}", method: :get
           &emsp;
           = link_to "Edit", "/users/#{user.id}/edit", method: :get
           &emsp;
-          = link_to "Destroy", "/users/#{user.id}", method: :delete, data: { confirm: "You sure?" }
+          = link_to "Delete", "/users/#{user.id}", method: :delete, data: { confirm: "Are you sure?" }

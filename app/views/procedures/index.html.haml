@@ -29,29 +29,27 @@
           %i.user.icon
           Resident
         %th.right.collapsing
-          Confirmation Status
+          %i.user.icon
+          Trainer
         %th.right.collapsing
   %tbody      
   -# (@procedures.order(date: :desc)).each do |p|
   - @procedures.each do |p|
     - if p != nil
-      %tr
+      %tr.tablerow
         %td.collapsing
           = p.name
         %td.collapsing
           =p.date.to_s
-        %td.collapsing 
+        %td.collapsing
           =p.clinic_location
-        %td 
+        %td
           =p.notes
-        %td.right.collapsing 
+        %td.right.collapsing
           =p.resident_name
-        %td.right.collapsing 
-          - if p.confirmation
-            %i.checkmark.box.icon
-          - else
-            %i.square.outline.icon
-        %td.right.collapsing 
+        %td.right.collapsing
+          =p.trainer_name
+        %td.right.collapsing
           = link_to "View", "/procedures/#{p.id}", method: :get
           &emsp;
           = link_to "Edit", "/procedures/#{p.id}/edit", method: :get
