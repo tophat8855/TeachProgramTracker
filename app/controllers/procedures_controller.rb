@@ -38,26 +38,16 @@ class ProceduresController < ApplicationController
       @residentName = current_user.name
     end
 
-    @users = User.all
-  	@procedure = Procedure.new
-    @trainers = (User.where(trainer: true).pluck(:name) + Procedure.all.pluck(:trainer_name)).uniq.select(&:present?)
-    @clinic_locations = (Procedure::CLINIC_LOCATIONS + Procedure.all.pluck(:clinic_location)).uniq
-  end
-
-  def newagain
-    if current_user.admin?
-      @allowNameEntry = true
-      @residentName = ""
-    elsif current_user.trainer?
-      @allowNameEntry = true
-      @residentName = ""
+    if flash[:procid].nil?
+      print 'PRINTING NOT using local ----------'
+      @procedure = Procedure.new
     else
-      @allowNameEntry = false
-      @residentName = current_user.name
+      print 'PRINTING using local ----------'
+      puts flash[:procid].inspect
+      @procedure = Procedure.new
     end
 
     @users = User.all
-    @procedure = Procedure.new(localprocedure)
     @trainers = (User.where(trainer: true).pluck(:name) + Procedure.all.pluck(:trainer_name)).uniq.select(&:present?)
     @clinic_locations = (Procedure::CLINIC_LOCATIONS + Procedure.all.pluck(:clinic_location)).uniq
   end
@@ -90,13 +80,10 @@ class ProceduresController < ApplicationController
       params[:procedure][:user_id] = current_user.id
     end
 
-    Procedure.create(procedure_params)
-    print 'PRINTINGINGINEJFAKSBFAHSBFKA\n'
-    puts params.inspect
+    pp = Procedure.create(procedure_params)
     if params[:addanother] == 'Submit and Add Another'
-      localprocedure = procedure_params
-      redirect_to '/procedures/newagain'
-      #pass in params from THIS
+      redirect_to new_procedure_path, flash: {procid: pp.id}
+      #redirect_to controller: 'procedure', action: 'new' , procid: proc.id
     else
       redirect_to procedures_path
     end
@@ -116,6 +103,24 @@ class ProceduresController < ApplicationController
 
   	@users = User.all
   	@procedure = Procedure.find_by(id: params[:id])
+    @trainers = (User.where(trainer: true).pluck(:name) + Procedure.all.pluck(:trainer_name)).uniq.select(&:present?)
+    @clinic_locations = (Procedure::CLINIC_LOCATIONS + Procedure.all.pluck(:clinic_location)).uniq
+  end
+
+  def newagain
+    if current_user.admin?
+      @allowNameEntry = true
+      @residentName = ""
+    elsif current_user.trainer?
+      @allowNameEntry = true
+      @residentName = ""
+    else
+      @allowNameEntry = false
+      @residentName = current_user.name
+    end
+
+    @users = User.all
+    @procedure = Procedure.new(localprocedure)
     @trainers = (User.where(trainer: true).pluck(:name) + Procedure.all.pluck(:trainer_name)).uniq.select(&:present?)
     @clinic_locations = (Procedure::CLINIC_LOCATIONS + Procedure.all.pluck(:clinic_location)).uniq
   end
