@@ -13,13 +13,6 @@ RSpec.describe UsersController, type: :controller do
     admin: true
   )}
 
-  let(:admin_to_view) { FactoryGirl.create(:user,
-    name: 'Admin To View',
-    email: 'admin_to_view@email.com',
-    residency_location_id: location.id,
-    admin: true
-  )}
-
   let(:trainer) { FactoryGirl.create(:user,
     name: 'Trainer',
     email: 'trainer@email.com',
@@ -27,22 +20,9 @@ RSpec.describe UsersController, type: :controller do
     trainer: true
   )}
 
-  let(:trainer_to_view) { FactoryGirl.create(:user,
-    name: 'Trainer To View',
-    email: 'trainer_to_view@email.com',
-    residency_location_id: location.id,
-    trainer: true
-  )}
-
   let(:resident)  { FactoryGirl.create(:user,
     name: 'Resident',
     email: 'resident@email.com',
-    residency_location_id: location.id,
-  )}
-
-  let(:resident_to_view)  { FactoryGirl.create(:user,
-    name: 'Resident to View',
-    email: 'resident_to_view@email.com',
     residency_location_id: location.id,
   )}
 
@@ -113,6 +93,13 @@ RSpec.describe UsersController, type: :controller do
     end
 
     context 'when the current_user is admin' do
+      let(:admin_to_view) { FactoryGirl.create(:user,
+        name: 'Admin To View',
+        email: 'admin_to_view@email.com',
+        residency_location_id: location.id,
+        admin: true
+      )}
+
       before do
         sign_in admin
       end
@@ -139,6 +126,13 @@ RSpec.describe UsersController, type: :controller do
     end
 
     context 'when the current_user is trainer' do
+      let(:trainer_to_view) { FactoryGirl.create(:user,
+        name: 'Trainer To View',
+        email: 'trainer_to_view@email.com',
+        residency_location_id: location.id,
+        trainer: true
+      )}
+
       before do
         sign_in trainer
       end
@@ -165,6 +159,12 @@ RSpec.describe UsersController, type: :controller do
     end
 
     context 'when the current_user is resident' do
+      let(:resident_to_view)  { FactoryGirl.create(:user,
+        name: 'Resident to View',
+        email: 'resident_to_view@email.com',
+        residency_location_id: location.id,
+      )}
+
       before do
         sign_in resident
       end
