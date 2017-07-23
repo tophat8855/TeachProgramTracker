@@ -20,7 +20,7 @@ class ProceduresController < ApplicationController
 
 	respond_to do |format|
 		format.html
-		format.js
+		format.js {render inline: "location.reload();" }
 	end
 
     @users = User.all
