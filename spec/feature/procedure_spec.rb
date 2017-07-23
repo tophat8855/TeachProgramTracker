@@ -26,6 +26,7 @@ RSpec.describe 'Procedure Features', type: :feature do
     resident_status: resident.status,
     user_id: resident.id,
     clinic_location: location.name,
+    trainer_name: trainer.name,
     trainer_id: trainer.id)
   }
 
@@ -34,7 +35,20 @@ RSpec.describe 'Procedure Features', type: :feature do
     resident_status: resident.status,
     name: 'MVA',
     user_id: resident.id,
-    clinic_location: location2.name)
+    clinic_location: location2.name,
+    trainer_name: trainer.name,
+    trainer_id: trainer.id
+    )
+  }
+
+  let!(:procedure_with_custom_trainer) { FactoryGirl.create(:procedure,
+    resident_name: resident.name,
+    resident_status: resident.status,
+    name: 'MVA',
+    user_id: resident.id,
+    clinic_location: location2.name,
+    trainer_name: 'Custom Trainer',
+    trainer_id: -1)
   }
 
   before do
@@ -168,6 +182,29 @@ RSpec.describe 'Procedure Features', type: :feature do
         expect(page).to have_content 'Mars'
         expect(page).to have_content 'jkl;jkl;'
         expect(page).to have_content 'Contraceptive'
+      end
+    end
+
+    context 'with a custom trainer' do
+      it 'updates a procedure' do
+        link_column = page.all('td.right.collapsing')[2]
+
+        link_column.click_link('Edit')
+
+        fill_in 'Date', with: '2017-07-01'
+        select 'Contraceptive', from: 'Procedure Name'
+        fill_in 'Gestation', with: 12
+        select 'Performed', from: 'Assistance'
+        select 'Custom Trainer', from: 'Trainer'
+        fill_in 'Notes', with: 'jkl;jkl;'
+
+        click_on 'Submit'
+
+        updated_row = page.all('tr.tablerow')[2]
+
+        expect(updated_row).to have_content 'jkl;jkl;'
+        expect(updated_row).to have_content 'Contraceptive'
+        expect(updated_row).to have_content 'Custom Trainer'
       end
     end
   end

@@ -90,8 +90,12 @@ class ProceduresController < ApplicationController
       params[:procedure][:clinic_location] = params['New Clinic Location']
     end
 
-    unless params['New Trainer'].empty?
+    if !params['New Trainer'].empty?
       params[:procedure][:trainer_name] = params['New Trainer']
+      params[:procedure][:trainer_id] = -1
+    elsif custom_trainer?
+      params[:procedure][:trainer_name] = params[:procedure][:trainer_name]
+      params[:procedure][:trainer_id] = -1
     else
       trainer = User.find_by(name: params[:procedure][:trainer_name])
       params[:procedure][:trainer_id] = trainer.id
@@ -133,5 +137,10 @@ class ProceduresController < ApplicationController
 
   def procedure_params
   	params.require(:procedure).permit(:resident_name, :name, :date, :assistance, :notes, :gestation, :resident_status, :user_id, :trainer_id, :trainer_name, :clinic_location)
+  end
+
+  private
+  def custom_trainer?
+    User.find_by(name: params[:procedure][:trainer_name]).nil?
   end
 end
