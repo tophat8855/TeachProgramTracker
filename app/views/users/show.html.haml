@@ -23,9 +23,10 @@
 
         %tbody
           - (@procedures.order(date: :desc)).each do |p|
-            %td.collapsing
-              = link_to p.date.to_s, procedure_path(id: p.id)
-            %td
-              = p.name
-            %td
-              =p.clinic_location
+            %tr
+              %td.collapsing
+                = link_to p.date.to_s, procedure_path(id: p.id)
+              %td
+                = p.name
+              %td
+                =p.clinic_location
