@@ -47,23 +47,3 @@
       = f.submit 'Submit', :class => "ui primary button"
       %a{:href => "/procedures"}
         = button_tag "Cancel", :type => 'button', :class => "ui button"
-
-
-//TODO: Pull procedure names from the database and list all possible options from the procedure DB table.
-//TODO: Get CSS working with "ui form" class
-
-/ /*
-/ 		%div.field
-/ 			%label{:for => "gest"} Weeks Gestation:
-/ 			%input{:name => "procedure[gestation]", :type => "number", :value => ""}/
-/ 		-#TODO: Clinic locations should be populated based off of residency locations.
-/ 		%div.field
-/ 			%label{:for => "clinic_location"} Clinic Location:
-/ 			%select{:name => "procedure[clinic_location]", :multiple => false}
-/ 				%option{value: 'Qonos'} Kronos
-/ 				%option{value: 'Pluto'} Pluto
-/ 				%option{value: 'Mars'} Mars
-/ 				%option{value: 'The Mooon'} The Moon
-/ 				%option{value: 'Pluto'} Pluto
-/ 				%option{value: 'Io'} Io
-/ 		%div.field

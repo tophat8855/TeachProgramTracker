@@ -4,53 +4,9 @@
       %i.plus.icon
       Record New Procedure
 
-%table.ui.celled.table
-  %thead
-    %tr
-      %th{:colspan => "7"}
-        - if @priviledged == false
-          %div Your procedure history
-        - else
-          %div Procedure history
-      %tr
-        %th.collapsing
-          %i.heartbeat.icon
-          Procedure Type
-        %th.collapsing
-          %i.calendar.icon
-          Date
-        %th.collapsing
-          %i.marker.icon
-          Clinic
-        %th
-          %i.sticky.note.icon
-          Notes
-        %th.right.collapsing
-          %i.user.icon
-          Resident
-        %th.right.collapsing
-          %i.user.icon
-          Trainer
-        %th.right.collapsing
-  %tbody
-  - (@procedures.order(date: :desc)).each do |p|
-    - if p != nil
-      %tr.tablerow
-        %td.collapsing
-          = p.name
-        %td.collapsing
-          =p.date.to_s
-        %td.collapsing
-          =p.clinic_location
-        %td
-          =p.notes
-        %td.right.collapsing
-          =p.resident_name
-        %td.right.collapsing
-          =p.trainer_name
-        %td.right.collapsing
-          = link_to "View", "/procedures/#{p.id}", method: :get
-          &emsp;
-          = link_to "Edit", "/procedures/#{p.id}/edit", method: :get
-          &emsp;
-          = link_to "Destroy", "/procedures/#{p.id}", method: :delete, data: { confirm: "You sure?" }
+= form_for_filterrific @filterrific do |f|
+  = render_filterrific_spinner
+= render(                           |
+    partial: 'procedures/list',       |
+    locals: { procedures: @procedures } |
+  )                                 |
