@@ -46,10 +46,11 @@
       = f.label :notes
       = f.text_field :notes
     .ui.buttons
-      = f.submit 'Submit', :class => "button ui positive button"
-      /.or
-      /%a{:href => "/procedures"}
-      /  = button_tag "Add Another Procedure", :type => 'button', :class => "ui button"
+      = f.submit 'Submit', :name => 'addanother', :class => "button ui positive button"
+      .or
+      = f.submit 'Submit and Add Another', :name => 'addanother', :class => "button ui button"
+      / %a{:href => "/procedures/new"}
+      /   = button_tag "Submit and Add Another Procedure", :type => 'button', :class => "ui button"
       .or
       %a{:href => "/procedures"}
         = button_tag "Cancel", :type => 'button', :class => "ui button negative"

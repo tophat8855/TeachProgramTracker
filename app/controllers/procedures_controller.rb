@@ -38,8 +38,15 @@ class ProceduresController < ApplicationController
       @residentName = current_user.name
     end
 
+    if flash[:procid].nil?
+      @procedure = Procedure.new
+    else
+      old_id = flash[:procid].inspect
+      last_procedure = Procedure.find_by(id: old_id)
+      @procedure = Procedure.new(last_procedure.attributes.merge({:id => nil}))
+    end
+
     @users = User.all
-  	@procedure = Procedure.new
     @trainers = (User.where(trainer: true).pluck(:name) + Procedure.all.pluck(:trainer_name)).uniq.select(&:present?)
     @clinic_locations = (Procedure::CLINIC_LOCATIONS + Procedure.all.pluck(:clinic_location)).uniq
   end
@@ -72,8 +79,13 @@ class ProceduresController < ApplicationController
       params[:procedure][:user_id] = current_user.id
     end
 
-  	Procedure.create(procedure_params)
-  	redirect_to procedures_path
+    pp = Procedure.create(procedure_params)
+    if params[:addanother] == 'Submit and Add Another'
+      redirect_to new_procedure_path, flash: {procid: pp.id}
+      #redirect_to controller: 'procedure', action: 'new' , procid: proc.id
+    else
+      redirect_to procedures_path
+    end
   end
 
   def edit
