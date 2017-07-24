@@ -39,12 +39,11 @@ class ProceduresController < ApplicationController
     end
 
     if flash[:procid].nil?
-      print 'PRINTING NOT using local ----------'
       @procedure = Procedure.new
     else
-      print 'PRINTING using local ----------'
-      puts flash[:procid].inspect
-      @procedure = Procedure.new
+      old_id = flash[:procid].inspect
+      last_procedure = Procedure.find_by(id: old_id)
+      @procedure = Procedure.new(last_procedure.attributes.merge({:id => nil}))
     end
 
     @users = User.all
@@ -103,24 +102,6 @@ class ProceduresController < ApplicationController
 
   	@users = User.all
   	@procedure = Procedure.find_by(id: params[:id])
-    @trainers = (User.where(trainer: true).pluck(:name) + Procedure.all.pluck(:trainer_name)).uniq.select(&:present?)
-    @clinic_locations = (Procedure::CLINIC_LOCATIONS + Procedure.all.pluck(:clinic_location)).uniq
-  end
-
-  def newagain
-    if current_user.admin?
-      @allowNameEntry = true
-      @residentName = ""
-    elsif current_user.trainer?
-      @allowNameEntry = true
-      @residentName = ""
-    else
-      @allowNameEntry = false
-      @residentName = current_user.name
-    end
-
-    @users = User.all
-    @procedure = Procedure.new(localprocedure)
     @trainers = (User.where(trainer: true).pluck(:name) + Procedure.all.pluck(:trainer_name)).uniq.select(&:present?)
     @clinic_locations = (Procedure::CLINIC_LOCATIONS + Procedure.all.pluck(:clinic_location)).uniq
   end
