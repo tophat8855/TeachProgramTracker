@@ -17,10 +17,10 @@
     .field
       = f.label :residency_location_id, 'Residency Location'
       = f.collection_select(:residency_location_id, ResidencyLocation.all, :id, :name)
-    .ui
+    .field
       = f.label :trainer
       = f.check_box :trainer
-    .ui
+    .field
       = f.label :admin
       = f.check_box :admin
     = submit_tag 'Invite', :class => "ui primary button"
