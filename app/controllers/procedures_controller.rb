@@ -116,12 +116,7 @@ class ProceduresController < ApplicationController
       params[:procedure][:trainer_id] = trainer.id
     end
 
-    if current_user.admin?
-      params[:procedure][:trainer_id] = current_user.id
-      trainee = User.find(params[:procedure][:user_id])
-      params[:procedure][:resident_name] = trainee.name
-      params[:procedure][:resident_status] = trainee.status
-    elsif current_user.trainer?
+    if current_user.admin? || current_user.trainer?
       params[:procedure][:trainer_id] = current_user.id
       trainee = User.find(params[:procedure][:user_id])
       params[:procedure][:resident_name] = trainee.name
