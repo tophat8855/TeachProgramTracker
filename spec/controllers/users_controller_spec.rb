@@ -71,7 +71,7 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe '#show' do
-    context 'instance variable assignement' do
+    context 'instance variable assignment' do
       before do
         sign_in admin
       end

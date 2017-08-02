@@ -12,25 +12,25 @@ class ProceduresController < ApplicationController
       @priviledged = false
     end
 
-	@filterrific = initialize_filterrific(
-		Procedure,
-		params[:filterrific]
-	) or return
-	@procedures = @filterrific.find.page(params[:page])
+  	@filterrific = initialize_filterrific(
+  		Procedure,
+  		params[:filterrific]
+  	) or return
+  	@procedures = @filterrific.find.page(params[:page])
 
-	respond_to do |format|
-		format.html
-		format.js {render inline: "location.reload();" }
-	end
+  	respond_to do |format|
+  		format.html
+  		format.js {render inline: "location.reload();" }
+  	end
+  end
 
-    @users = User.all
+  def show
+    @procedure = Procedure.find_by(id: params[:id])
+    @trainer_name = @procedure.trainer_name
   end
 
   def new
-    if current_user.admin?
-      @allowNameEntry = true
-      @residentName = ""
-    elsif current_user.trainer?
+    if current_user.admin? || current_user.trainer?
       @allowNameEntry = true
       @residentName = ""
     else
@@ -63,12 +63,7 @@ class ProceduresController < ApplicationController
       params[:procedure][:trainer_id] = trainer.id
     end
 
-    if current_user.admin?
-      params[:procedure][:trainer_id] = current_user.id
-      trainee = User.find(params[:procedure][:user_id])
-      params[:procedure][:resident_name] = trainee.name
-      params[:procedure][:resident_status] = trainee.status
-    elsif current_user.trainer?
+    if current_user.admin? || current_user.trainer?
       params[:procedure][:trainer_id] = current_user.id
       trainee = User.find(params[:procedure][:user_id])
       params[:procedure][:resident_name] = trainee.name
@@ -89,10 +84,7 @@ class ProceduresController < ApplicationController
   end
 
   def edit
-    if current_user.admin?
-      @allowNameEntry = true
-      @residentName = ""
-    elsif current_user.trainer?
+    if current_user.admin? || current_user.trainer?
       @allowNameEntry = true
       @residentName = ""
     else
@@ -145,11 +137,6 @@ class ProceduresController < ApplicationController
     else
       redirect_to edit_procedure_path(@procedure)
     end
-  end
-
-  def show
-    @procedure = Procedure.find_by(id: params[:id])
-    @trainer_name = @procedure.trainer_id != -1 ? User.find_by(id: @procedure.trainer_id).name : ''
   end
 
   def destroy
