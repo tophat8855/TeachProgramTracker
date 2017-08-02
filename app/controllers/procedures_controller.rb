@@ -60,11 +60,9 @@ class ProceduresController < ApplicationController
       params[:procedure][:trainer_name] = params['New Trainer']
     else
       trainer = User.find_by(name: params[:procedure][:trainer_name])
-      params[:procedure][:trainer_id] = trainer.id
     end
 
     if current_user.admin? || current_user.trainer?
-      params[:procedure][:trainer_id] = current_user.id
       trainee = User.find(params[:procedure][:user_id])
       params[:procedure][:resident_name] = trainee.name
       params[:procedure][:resident_status] = trainee.status
@@ -107,17 +105,13 @@ class ProceduresController < ApplicationController
 
     if !params['New Trainer'].empty?
       params[:procedure][:trainer_name] = params['New Trainer']
-      params[:procedure][:trainer_id] = -1
     elsif custom_trainer?
       params[:procedure][:trainer_name] = params[:procedure][:trainer_name]
-      params[:procedure][:trainer_id] = -1
     else
       trainer = User.find_by(name: params[:procedure][:trainer_name])
-      params[:procedure][:trainer_id] = trainer.id
     end
 
     if current_user.admin? || current_user.trainer?
-      params[:procedure][:trainer_id] = current_user.id
       trainee = User.find(params[:procedure][:user_id])
       params[:procedure][:resident_name] = trainee.name
       params[:procedure][:resident_status] = trainee.status
@@ -141,7 +135,7 @@ class ProceduresController < ApplicationController
   end
 
   def procedure_params
-  	params.require(:procedure).permit(:resident_name, :name, :date, :assistance, :notes, :gestation, :resident_status, :user_id, :trainer_id, :trainer_name, :clinic_location)
+  	params.require(:procedure).permit(:resident_name, :name, :date, :assistance, :notes, :gestation, :resident_status, :user_id, :trainer_name, :clinic_location)
   end
 
   private

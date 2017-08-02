@@ -6,7 +6,6 @@ FactoryGirl.define do
     assistance { 'Observed' }
     resident_status { 'R2' }
     user_id { 2 }
-    trainer_id { 1000 }
     trainer_name { 'Factory Trainer' }
     clinic_location { 'Oakland' }
     notes { Faker::Lorem.sentence }

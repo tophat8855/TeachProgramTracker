@@ -25,7 +25,6 @@ RSpec.describe 'Admin management of users', type: :feature do
     resident_name: resident.name,
     resident_status: resident.status,
     user_id: resident.id,
-    trainer_id: trainer.id,
     clinic_location: location1.name)
   }
 

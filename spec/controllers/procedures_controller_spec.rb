@@ -85,7 +85,6 @@ RSpec.describe ProceduresController, type: :controller do
     let(:procedure) { FactoryGirl.create(:procedure,
       resident_name: resident.name,
       user_id: resident.id,
-      trainer_id: trainer.id,
       trainer_name: trainer.name
       )
     }
@@ -105,7 +104,6 @@ RSpec.describe ProceduresController, type: :controller do
       let(:procedure_with_custom_trainer) { FactoryGirl.create(:procedure,
         resident_name: resident.name,
         user_id: resident.id,
-        trainer_id: -1,
         trainer_name: 'Custom Trainer Name'
         )
       }
@@ -177,7 +175,6 @@ RSpec.describe ProceduresController, type: :controller do
           gestation: '12',
           resident_status: resident.status,
           user_id: resident.id,
-          trainer_id: trainer.id,
           trainer_name: trainer.name,
           clinic_location: location,
         },
@@ -199,7 +196,6 @@ RSpec.describe ProceduresController, type: :controller do
         expect(new_procedure.notes).to eq 'procedure notes'
         expect(new_procedure.gestation).to eq 12
         expect(new_procedure.resident_status).to eq resident.status
-        expect(new_procedure.trainer_id).to eq trainer.id
         expect(new_procedure.trainer_name).to eq trainer.name
         expect(new_procedure.clinic_location).to eq location.id.to_s
       end
@@ -215,7 +211,6 @@ RSpec.describe ProceduresController, type: :controller do
             gestation: '12',
             resident_status: resident.status,
             user_id: resident.id,
-            trainer_id: trainer.id,
             trainer_name: trainer.name
           },
           'New Clinic Location': 'Mars',
@@ -236,7 +231,6 @@ RSpec.describe ProceduresController, type: :controller do
           expect(new_procedure.notes).to eq 'procedure notes'
           expect(new_procedure.gestation).to eq 12
           expect(new_procedure.resident_status).to eq resident.status
-          expect(new_procedure.trainer_id).to eq trainer.id
           expect(new_procedure.trainer_name).to eq trainer.name
           expect(new_procedure.clinic_location).to eq 'Mars'
         end
@@ -272,7 +266,6 @@ RSpec.describe ProceduresController, type: :controller do
           expect(new_procedure.notes).to eq 'procedure notes'
           expect(new_procedure.gestation).to eq 12
           expect(new_procedure.resident_status).to eq resident.status
-          expect(new_procedure.trainer_id).to eq nil
           expect(new_procedure.trainer_name).to eq 'Ms. Frizzle'
         end
       end
@@ -291,7 +284,6 @@ RSpec.describe ProceduresController, type: :controller do
     let(:procedure) { FactoryGirl.create(:procedure,
       resident_name: resident.name,
       user_id: resident.id,
-      trainer_id: trainer.id,
       trainer_name: trainer.name
       )
     }
@@ -349,7 +341,6 @@ RSpec.describe ProceduresController, type: :controller do
       let(:procedure) { FactoryGirl.create(:procedure,
         resident_name: resident.name,
         user_id: resident.id,
-        trainer_id: trainer.id,
         trainer_name: trainer.name
         )
       }
@@ -371,7 +362,6 @@ RSpec.describe ProceduresController, type: :controller do
             resident_status: resident.status,
             user_id: resident.id,
             clinic_location: updated_location.name,
-            trainer_id: trainer.id,
             trainer_name: trainer.name
           },
           'New Clinic Location': nil,
@@ -390,7 +380,6 @@ RSpec.describe ProceduresController, type: :controller do
         expect(updated_procedure.gestation).to eq 9
         expect(updated_procedure.resident_status).to eq resident.status
         expect(updated_procedure.user_id).to eq resident.id
-        expect(updated_procedure.trainer_id).to eq trainer.id
         expect(updated_procedure.trainer_name).to eq trainer.name
         expect(updated_procedure.clinic_location).to eq updated_location.name
       end
@@ -409,7 +398,6 @@ RSpec.describe ProceduresController, type: :controller do
     let(:procedure) { FactoryGirl.create(:procedure,
       resident_name: resident.name,
       user_id: resident.id,
-      trainer_id: trainer.id,
       trainer_name: trainer.name
       )
     }

@@ -26,8 +26,8 @@ RSpec.describe 'Procedure Features', type: :feature do
     resident_status: resident.status,
     user_id: resident.id,
     clinic_location: location.name,
-    trainer_name: trainer.name,
-    trainer_id: trainer.id)
+    trainer_name: trainer.name
+    )
   }
 
   let!(:procedure_2) { FactoryGirl.create(:procedure,
@@ -36,8 +36,7 @@ RSpec.describe 'Procedure Features', type: :feature do
     name: 'MVA',
     user_id: resident.id,
     clinic_location: location2.name,
-    trainer_name: trainer.name,
-    trainer_id: trainer.id
+    trainer_name: trainer.name
     )
   }
 
@@ -47,8 +46,8 @@ RSpec.describe 'Procedure Features', type: :feature do
     name: 'MVA',
     user_id: resident.id,
     clinic_location: location2.name,
-    trainer_name: 'Custom Trainer',
-    trainer_id: -1)
+    trainer_name: 'Custom Trainer'
+    )
   }
 
   before do
