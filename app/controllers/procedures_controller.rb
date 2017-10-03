@@ -90,7 +90,7 @@ class ProceduresController < ApplicationController
       @residentName = current_user.name
     end
 
-  	@users = User.all
+  	@users = User.all.reverse
   	@procedure = Procedure.find_by(id: params[:id])
     @trainers = (User.where(trainer: true).pluck(:name) + Procedure.all.pluck(:trainer_name)).uniq.select(&:present?)
     @clinic_locations = (Procedure::CLINIC_LOCATIONS + Procedure.all.pluck(:clinic_location)).uniq
