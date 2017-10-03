@@ -95,5 +95,5 @@ class Procedure < ActiveRecord::Base
       'away rotation'
     ]
 
-  NAMES = ['MVA', 'IUD', 'MAB', 'U/S', 'Implant', 'Options', 'Contraceptive']
+  NAMES = ['EVA', 'MVA', 'IUD', 'MAB', 'U/S', 'Implant', 'Options', 'Contraceptive']
 end
