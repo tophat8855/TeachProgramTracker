@@ -5,3 +5,4 @@ locations = ResidencyLocation.create([{name: 'San Francisco'}, {name: 'Contra Co
 
 User.create({email: 'test@gmail.com', password: 'password', password_confirmation: 'password', name: 'Test1', admin: true, trainer: true, residency_location_id: locations.first.id})
 User.create({email: 'test2@gmail.com', password: 'password', password_confirmation: 'password', name: 'Test2', status: 'R2', residency_location_id: locations.first.id})
+User.create({email: 'test3@gmail.com', password: 'password', password_confirmation: 'password', name: 'Test3', status: 'R2', residency_location_id: locations.first.id})

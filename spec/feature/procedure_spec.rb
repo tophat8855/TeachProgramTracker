@@ -12,6 +12,15 @@ RSpec.describe 'Procedure Features', type: :feature do
     password_confirmation: 'password')
   }
 
+  let!(:other_resident)  { FactoryBot.create(:user,
+    name: 'Other Resident Name',
+    email: 'other@example.com',
+    residency_location_id: location.id,
+    status: 'R2',
+    password: 'password',
+    password_confirmation: 'password')
+  }
+
   let!(:trainer) { FactoryBot.create(:user,
     name: 'Trainer Name',
     email: 'trainer@email.com',
@@ -40,6 +49,15 @@ RSpec.describe 'Procedure Features', type: :feature do
     )
   }
 
+  let!(:other_procedure) { FactoryBot.create(:procedure,
+    resident_name: other_resident.name,
+    resident_status: other_resident.status,
+    name: 'MVA',
+    user_id: other_resident.id,
+    clinic_location: location2.name,
+    trainer_name: trainer.name
+    )
+  }
   let!(:procedure_with_custom_trainer) { FactoryBot.create(:procedure,
     resident_name: resident.name,
     resident_status: resident.status,
@@ -65,6 +83,10 @@ RSpec.describe 'Procedure Features', type: :feature do
 
       expect(page).to have_content procedure_2.name
       expect(page).to have_content procedure_2.notes
+    end
+
+    it 'does not show procedures for other users' do
+      expect(page).to_not have_content other_resident.name
     end
   end
 

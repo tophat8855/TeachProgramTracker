@@ -2,11 +2,12 @@
   .pull-right{ :'data-position' => 'bottom', :'data-intro' => 'Reset the filter settings to defaults.' }
     = link_to "Reset filters", reset_filterrific_url, :class => 'btn btn-default btn-sm'
   .chardin_box{ :'data-position' => 'bottom', :'data-intro' => "will_paginate's entries info works as expected." }
-    = page_entries_info procedures, :model => 'procedure'
+    -# = page_entries_info procedures, :model => 'procedure'
   .chardin_box{ :'data-position' => 'bottom', :'data-intro' => 'Spinner indicates update.' }
     = render_filterrific_spinner
 
 %table.ui.celled.table
+  =current_user.name
   %thead
     %tr
       %th{:colspan => "8"}
@@ -17,10 +18,10 @@
       %tr
         %th.collapsing
           %i.heartbeat.icon
-          =link_to filterrific_sorting_link(@filterrific, :name, {label: "Procedure Name"})
+          -# =link_to filterrific_sorting_link(@filterrific, :name, {label: "Procedure Name"})
         %th.collapsing
           %i.calendar.icon
-          =filterrific_sorting_link(@filterrific, :date, {label: "Date"})
+          -# =filterrific_sorting_link(@filterrific, :date, {label: "Date"})
         %th.collapsing
           %i.marker.icon
           Clinic
@@ -32,29 +33,23 @@
           Notes
         %th.right.collapsing
           %i.user.icon
-          =filterrific_sorting_link(@filterrific, :resident_name, {label: "Resident"})
+          -# =filterrific_sorting_link(@filterrific, :resident_name, {label: "Resident"})
         %th.right.collapsing
           %i.user.icon
-          =filterrific_sorting_link(@filterrific, :trainer_name, {label: "Trainer"})
+          -# =filterrific_sorting_link(@filterrific, :trainer_name, {label: "Trainer"})
         %th.right.collapsing
   %tbody
+    = #{current_user.name}
   - @procedures.each do |p|
     - if p != nil
       %tr.tablerow
-        %td.collapsing
-          =p.name
-        %td.collapsing
-          =p.date.to_s
-        %td.collapsing
-          =p.clinic_location
-        %td.collapsing
-          =p.gestation
-        %td
-          =p.notes
-        %td.right.collapsing
-          =p.resident_name
-        %td.right.collapsing
-          =p.trainer_name
+        %td.collapsing #{p.name}
+        %td.collapsing #{p.date.to_s}
+        %td.collapsing #{p.clinic_location}
+        %td.collapsing #{p.gestation}
+        %td #{p.notes}
+        %td.right.collapsing #{p.resident_name}
+        %td.right.collapsing #{p.trainer_name}
         %td.right.collapsing
           = link_to "View", "/procedures/#{p.id}", method: :get
           &emsp;
@@ -63,4 +58,4 @@
           = link_to "Destroy", "/procedures/#{p.id}", method: :delete, data: { confirm: "You sure?" }
 
 .chardin_box{ :'data-position' => 'top', :'data-intro' => "will_paginate's paginator works as expected." }
-  = will_paginate @procedures, renderer: WillPaginateSemanticUi::ActionView::Renderer
+  -# = will_paginate @procedures, renderer: WillPaginateSemanticUi::ActionView::Renderer

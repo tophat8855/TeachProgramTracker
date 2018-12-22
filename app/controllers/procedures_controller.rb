@@ -8,15 +8,19 @@ class ProceduresController < ApplicationController
       @procedures = Procedure.all
       @priviledged = true
     else
-      @procedures = Procedure.where user_id: current_user.id
+      @procedures = Procedure.where(user_id: current_user.id).order(date: :desc)
       @priviledged = false
     end
 
-  	@filterrific = initialize_filterrific(
-  		Procedure,
-  		params[:filterrific]
-  	) or return
-  	@procedures = @filterrific.find.page(params[:page])
+  	# @filterrific = initialize_filterrific(
+  	# 	Procedure,
+  	# 	params[:filterrific],
+    #   select_options: {
+    #     by_user_id: current_user.id
+    #   },
+    #   available_filters: [:by_user_id]
+  	# ) or return
+  	# @procedures = @filterrific.find.page(params[:page])
 
   	respond_to do |format|
   		format.html

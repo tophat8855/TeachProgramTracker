@@ -58,7 +58,7 @@ class Procedure < ActiveRecord::Base
     }
 
     scope :with_date_gte, lambda { |ref_date|
-    where('procedures.date >= ?', ref_date)
+      where('procedures.date >= ?', ref_date)
     }
 
     def self.options_for_sorted_by
