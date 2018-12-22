@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Procedure Features', type: :feature do
-  let!(:location)  { FactoryGirl.create(:residency_location) }
-  let!(:location2) { FactoryGirl.create(:residency_location) }
-  let!(:resident)  { FactoryGirl.create(:user,
+  let!(:location)  { FactoryBot.create(:residency_location) }
+  let!(:location2) { FactoryBot.create(:residency_location) }
+  let!(:resident)  { FactoryBot.create(:user,
     name: 'Resident Name',
     email: 'resident@email.com',
     residency_location_id: location.id,
@@ -12,7 +12,7 @@ RSpec.describe 'Procedure Features', type: :feature do
     password_confirmation: 'password')
   }
 
-  let!(:trainer) { FactoryGirl.create(:user,
+  let!(:trainer) { FactoryBot.create(:user,
     name: 'Trainer Name',
     email: 'trainer@email.com',
     residency_location_id: location.id,
@@ -21,7 +21,7 @@ RSpec.describe 'Procedure Features', type: :feature do
     password_confirmation: 'password')
   }
 
-  let!(:procedure_1) { FactoryGirl.create(:procedure,
+  let!(:procedure_1) { FactoryBot.create(:procedure,
     resident_name: resident.name,
     resident_status: resident.status,
     user_id: resident.id,
@@ -30,7 +30,7 @@ RSpec.describe 'Procedure Features', type: :feature do
     )
   }
 
-  let!(:procedure_2) { FactoryGirl.create(:procedure,
+  let!(:procedure_2) { FactoryBot.create(:procedure,
     resident_name: resident.name,
     resident_status: resident.status,
     name: 'MVA',
@@ -40,7 +40,7 @@ RSpec.describe 'Procedure Features', type: :feature do
     )
   }
 
-  let!(:procedure_with_custom_trainer) { FactoryGirl.create(:procedure,
+  let!(:procedure_with_custom_trainer) { FactoryBot.create(:procedure,
     resident_name: resident.name,
     resident_status: resident.status,
     name: 'MVA',

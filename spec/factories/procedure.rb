@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :procedure do
     resident_name { Faker::Name.name }
     date { Date.today - 7.days }

@@ -3,34 +3,34 @@ require 'rails_helper'
 RSpec.describe ProceduresController, type: :controller do
   include Devise::Test::ControllerHelpers
 
-  let(:location) { FactoryGirl.create(:residency_location) }
+  let(:location) { FactoryBot.create(:residency_location) }
 
-  let(:admin) { FactoryGirl.create(:user,
+  let(:admin) { FactoryBot.create(:user,
     name: 'Admin',
     email: 'admin@email.com',
     residency_location_id: location.id,
     admin: true
   )}
 
-  let(:trainer) { FactoryGirl.create(:user,
+  let(:trainer) { FactoryBot.create(:user,
     name: 'Trainer',
     email: 'trainer@email.com',
     residency_location_id: location.id,
     trainer: true
   )}
 
-  let(:resident) { FactoryGirl.create(:user,
+  let(:resident) { FactoryBot.create(:user,
     name: 'Resident',
     email: 'resident@email.com',
     residency_location_id: location.id,
   )}
 
-  let(:procedure1) { FactoryGirl.create(:procedure,
+  let(:procedure1) { FactoryBot.create(:procedure,
     resident_name: resident.name,
     user_id: resident.id
   )}
 
-  let(:procedure2) { FactoryGirl.create(:procedure,
+  let(:procedure2) { FactoryBot.create(:procedure,
     resident_name: trainer.name,
     user_id: trainer.id
   )}
@@ -82,7 +82,7 @@ RSpec.describe ProceduresController, type: :controller do
   end
 
   describe '#show' do
-    let(:procedure) { FactoryGirl.create(:procedure,
+    let(:procedure) { FactoryBot.create(:procedure,
       resident_name: resident.name,
       user_id: resident.id,
       trainer_name: trainer.name
@@ -101,7 +101,7 @@ RSpec.describe ProceduresController, type: :controller do
     end
 
     context 'if trainer is not in the db as a user' do
-      let(:procedure_with_custom_trainer) { FactoryGirl.create(:procedure,
+      let(:procedure_with_custom_trainer) { FactoryBot.create(:procedure,
         resident_name: resident.name,
         user_id: resident.id,
         trainer_name: 'Custom Trainer Name'
@@ -281,7 +281,7 @@ RSpec.describe ProceduresController, type: :controller do
   end
 
   describe '#edit' do
-    let(:procedure) { FactoryGirl.create(:procedure,
+    let(:procedure) { FactoryBot.create(:procedure,
       resident_name: resident.name,
       user_id: resident.id,
       trainer_name: trainer.name
@@ -336,9 +336,9 @@ RSpec.describe ProceduresController, type: :controller do
 
   describe '#update' do
     context 'when user is resident' do
-      let(:updated_location) { FactoryGirl.create(:residency_location) }
+      let(:updated_location) { FactoryBot.create(:residency_location) }
 
-      let(:procedure) { FactoryGirl.create(:procedure,
+      let(:procedure) { FactoryBot.create(:procedure,
         resident_name: resident.name,
         user_id: resident.id,
         trainer_name: trainer.name
@@ -395,7 +395,7 @@ RSpec.describe ProceduresController, type: :controller do
   end
 
   describe '#destroy' do
-    let(:procedure) { FactoryGirl.create(:procedure,
+    let(:procedure) { FactoryBot.create(:procedure,
       resident_name: resident.name,
       user_id: resident.id,
       trainer_name: trainer.name

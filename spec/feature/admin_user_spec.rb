@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Admin management of users', type: :feature do
-  let!(:location1) { FactoryGirl.create(:residency_location) }
-  let!(:location2) { FactoryGirl.create(:residency_location) }
-  let!(:resident) { FactoryGirl.create(:user,
+  let!(:location1) { FactoryBot.create(:residency_location) }
+  let!(:location2) { FactoryBot.create(:residency_location) }
+  let!(:resident) { FactoryBot.create(:user,
     name: 'Resident Name',
     email: 'resident@email.com',
     residency_location_id: location1.id,
@@ -12,7 +12,7 @@ RSpec.describe 'Admin management of users', type: :feature do
     password_confirmation: 'password')
   }
 
-  let!(:trainer) { FactoryGirl.create(:user,
+  let!(:trainer) { FactoryBot.create(:user,
     name: 'Trainer Name',
     email: 'trainer@email.com',
     residency_location_id: location1.id,
@@ -21,7 +21,7 @@ RSpec.describe 'Admin management of users', type: :feature do
     password_confirmation: 'password')
   }
 
-  let!(:procedure) { FactoryGirl.create(:procedure,
+  let!(:procedure) { FactoryBot.create(:procedure,
     resident_name: resident.name,
     resident_status: resident.status,
     user_id: resident.id,
@@ -131,7 +131,7 @@ RSpec.describe 'Admin management of users', type: :feature do
   end
 
   def login_admin
-    FactoryGirl.create(:user,
+    FactoryBot.create(:user,
       email: 'test@email.com',
       password: 'password',
       password_confirmation: 'password',

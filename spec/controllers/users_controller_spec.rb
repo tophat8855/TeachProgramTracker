@@ -3,24 +3,24 @@ require 'rails_helper'
 RSpec.describe UsersController, type: :controller do
   include Devise::Test::ControllerHelpers
 
-  let(:location) { FactoryGirl.create(:residency_location) }
-  let(:location2) { FactoryGirl.create(:residency_location) }
+  let(:location) { FactoryBot.create(:residency_location) }
+  let(:location2) { FactoryBot.create(:residency_location) }
 
-  let(:admin) { FactoryGirl.create(:user,
+  let(:admin) { FactoryBot.create(:user,
     name: 'Admin',
     email: 'admin@email.com',
     residency_location_id: location.id,
     admin: true
   )}
 
-  let(:trainer) { FactoryGirl.create(:user,
+  let(:trainer) { FactoryBot.create(:user,
     name: 'Trainer',
     email: 'trainer@email.com',
     residency_location_id: location.id,
     trainer: true
   )}
 
-  let(:resident)  { FactoryGirl.create(:user,
+  let(:resident)  { FactoryBot.create(:user,
     name: 'Resident',
     email: 'resident@email.com',
     residency_location_id: location.id,
@@ -77,8 +77,8 @@ RSpec.describe UsersController, type: :controller do
       end
 
       it 'uses the residency location and procedures of the user' do
-        procedure = FactoryGirl.create(:procedure, resident_name: resident.name, user_id: resident.id)
-        other_procedure = FactoryGirl.create(:procedure, resident_name: resident.name, user_id: trainer.id)
+        procedure = FactoryBot.create(:procedure, resident_name: resident.name, user_id: resident.id)
+        other_procedure = FactoryBot.create(:procedure, resident_name: resident.name, user_id: trainer.id)
 
         get :show, params: { id: resident.id }
         user = assigns(:user)
@@ -93,7 +93,7 @@ RSpec.describe UsersController, type: :controller do
     end
 
     context 'when the current_user is admin' do
-      let(:admin_to_view) { FactoryGirl.create(:user,
+      let(:admin_to_view) { FactoryBot.create(:user,
         name: 'Admin To View',
         email: 'admin_to_view@email.com',
         residency_location_id: location.id,
@@ -126,7 +126,7 @@ RSpec.describe UsersController, type: :controller do
     end
 
     context 'when the current_user is trainer' do
-      let(:trainer_to_view) { FactoryGirl.create(:user,
+      let(:trainer_to_view) { FactoryBot.create(:user,
         name: 'Trainer To View',
         email: 'trainer_to_view@email.com',
         residency_location_id: location.id,
@@ -159,7 +159,7 @@ RSpec.describe UsersController, type: :controller do
     end
 
     context 'when the current_user is resident' do
-      let(:resident_to_view)  { FactoryGirl.create(:user,
+      let(:resident_to_view)  { FactoryBot.create(:user,
         name: 'Resident to View',
         email: 'resident_to_view@email.com',
         residency_location_id: location.id,
