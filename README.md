@@ -50,4 +50,4 @@ The server should be running on port 3000.
 rspec && git push
 ```
 
-Pushing the code to master will also deploy to the heroku app.
+Pushing the code to master will also deploy to the Heroku app.
